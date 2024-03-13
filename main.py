@@ -71,9 +71,6 @@ def create_table(conn, name_table, params):
     cur.close()
 
 
-# def insert_element(conn, name_table, params):
-#     #QUEM VAI FAZER SAO VCS
-#     pass
 def insert_element(conn, name_table, params):
     cmd_sql_colunas = "INSERT INTO " + name_table + "("
     cmd_sql_values  = " VALUES ("
@@ -99,25 +96,95 @@ def insert_element(conn, name_table, params):
         conn.commit()
         cursor.close()
 
-def update(conn, name_table, id, params):
-    daak;sdlkadsjkdasjijdasjkjkladskljjklads
-    dasflaksndfsdjklfndsfjklsdaf
-    asdfa
-    sdfasdfasdfasdf
-    pass
+def update_element(conn, name_table, condicional, params):
+    cmd_sql_colunas = "UPDATE " + name_table + " SET "
+
+    for index_vetor_params, single_param in enumerate(params):
+        cmd_sql_colunas += single_param[0] + "=" + single_param[1]
+        if index_vetor_params != len(params) - 1: #o ultimo elmento
+            cmd_sql_colunas += ", "
+
+    cmd_sql = cmd_sql_colunas + " WHERE " + condicional[0] + " = " + condicional[1] 
+
+    cursor = conn.cursor()
+    try:
+        cursor.execute(cmd_sql)
+        print(cmd_sql)
+    except Exception as e:
+        print(f"Falha: {e}")
+    finally:
+        conn.commit()
+        cursor.close()
+
+
+def select_elements(conn, name_table, condicional, params):
+    cmd_sql = "SELECT "
+    for index_vetor_params, single_param in enumerate(params):
+        cmd_sql += single_param
+        if index_vetor_params != len(params) - 1: #nao for o ultimo elmento
+            cmd_sql += ", "
+
+    cmd_sql += " FROM " + name_table + " WHERE "  + condicional[0] + " = " + condicional[1] 
+
+    cursor = conn.cursor()
+    try:
+        cursor.execute(cmd_sql)
+        print(cmd_sql)
+        rows = cursor.fetchall()
+        for row in rows:
+            print(row)
+    except Exception as e:
+        print(f"Falha: {e}")
+    finally:
+        conn.commit()
+        cursor.close()
+
+
+def select_all_elements(conn, name_table, params):
+    cmd_sql = "SELECT "
+    for index_vetor_params, single_param in enumerate(params):
+        cmd_sql += single_param
+        if index_vetor_params != len(params) - 1: #nao for o ultimo elmento
+            cmd_sql += ", "
+
+    cmd_sql += " FROM " + name_table
+
+    cursor = conn.cursor()
+    try:
+        cursor.execute(cmd_sql)
+        print(cmd_sql)
+        rows = cursor.fetchall()
+        for row in rows:
+            print(row)
+    except Exception as e:
+        print(f"Falha: {e}")
+    finally:
+        conn.commit()
+        cursor.close()
+
+
+def delete_element(conn, name_table, condicional):
+    cmd_sql = "DELETE FROM " + name_table + " WHERE "  + condicional[0] + " = " + condicional[1] 
+
+    cursor = conn.cursor()
+    try:
+        cursor.execute(cmd_sql)
+        print(cmd_sql)
+    except Exception as e:
+        print(f"Falha: {e}")
+    finally:
+        conn.commit()
+        cursor.close()
 
 
 if __name__ == '__main__':
     conn = connect_database("ticketcontroller", "postgres", "localhost", "postgres", 5432)
     # create_table(conn, "teste4", [("id", "SERIAL PRIMARY KEY"), ("rg", "INTEGER")  ])
 
-    insert_element(conn, "teste4", [("id", "8"), ("rg", "12")])
+    update_element(conn, "teste4", ("id", "12"), [("rg", "100")])
+    select_elements(conn, "teste4", ("id", "12"), ["rg"])
+    select_all_elements(conn, "teste4", ["rg"])
 
-
-    update_element(conn, "teste4", "8", [("rg", "120")])
-
-
-    # insert_element(conn, "teste4", [("id", "3"), ("rg", "116")])
-    # insert_element(conn, "teste4", [("id", "4"), ("rg", "125")])
+    delete_element(conn, "teste4", ("id", "12"))
 
     disconnect_dabase(conn)
