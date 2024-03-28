@@ -1,53 +1,52 @@
 import psycopg2
 from estrutura.BDControlador import BDControlador
 from estrutura.Empresa import Empresa
+from color_interface import *
 import tkinter as tk
 
 
-def buttonPress():
-    print("Button Pressed!!")
-    id = textb.get()
-    empresa_teste = controlador_banco.get_empresa(id)
-
-    label.config(text=empresa_teste.nome)
-
-
-
-def textBox():
-    print(textb.get())
-    
-def slideValue():
-    print (Slider.get())
-
-
 if __name__ == '__main__':
-    databe_name = "ticketcontroller"
+    databe_name = "vigilancia.com"
     user_name = "postgres"
     host_name = "localhost" 
-    pass_ = "postgres"
+    pass_ = "@Edi170380"
     port_name = 5432
 
     controlador_banco = BDControlador()
     controlador_banco.connect_database(databe_name, user_name, host_name, pass_, port_name)
 
-    mywindow = tk.Tk()
-    #Label
-    label = tk.Label(mywindow, text="Label Text")
-    label.grid(row=0,column=1)
-
-    #Button
-    button = tk.Button(mywindow,text='Press',command=buttonPress)
-    button.grid(row=1,column=1)
-
-    #Textbox
-    textb = tk.Entry(mywindow,text="Entry")
-    textbutton = tk.Button(mywindow,text="<-- Digite o id da empresa",command=textBox)
-    textb.grid(row=2,column=1)
-    textbutton.grid(row=2,column=2)
-
     
 
-    mywindow.mainloop()
+    login = tk.Tk()
+    login.title("Login")
+    login.configure(background= cor_fundo_login)
+    login.minsize(400, 300)
+    login.resizable(False, False)
+    larg_login = login.winfo_reqheight()
+    aut_login = login.winfo_reqwidth()
+    larg_tela = login.winfo_screenwidth()
+    alt_tela = login.winfo_screenheight()
+    pos_x = (larg_tela // 2) - (larg_login // 2)
+    pos_y = (alt_tela // 2) - (aut_login // 2)
+    login.geometry(f"{larg_login}x{aut_login}+{larg_tela//2}+{alt_tela//2}")
+
+    username_label=tk.Label(login, text="Usuario",bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 12))
+    username_label.place(relx=0.42, rely=0.2 ,relwidth=0.15, relheight=0.1)
+    username_entry=tk.Entry(login, bg= cor_entry, fg=cor_letra_login, border=1,  font=("Arial", 12))
+    username_entry.place(relx=0.25, rely=0.3, relwidth=0.5, relheight=0.08)
+
+
+    password_label=tk.Label(login, text="Senha",bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 12))
+    password_label.place(relx=0.42, rely=0.4, relwidth=0.15, relheight=0.1)
+    password_entry=tk.Entry(login, bg= cor_entry, fg=cor_letra_login, font=("Arial", 12), show="*")
+    password_entry.place(relx=0.25, rely=0.5, relwidth=0.5, relheight=0.08)
+
+    btn=tk.Button(login, text="Entrar", bg= cor_fundo_login, fg="white", font=("Arial", 12))
+    btn.place(relx=0.4, rely=0.75, relwidth=0.2, relheight=0.1)
+    
+
+    
+    login.mainloop()
 
 
 
