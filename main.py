@@ -3,7 +3,7 @@ from estrutura.BDControlador import BDControlador
 from estrutura.Empresa import Empresa
 from estrutura.Endereco import Endereco
 from estrutura.Funcionario import Funcionario
-from Color_interface import *
+from color_interface import *
 import tkinter as tk
 
 
