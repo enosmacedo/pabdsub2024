@@ -1,7 +1,9 @@
 import psycopg2
 from estrutura.BDControlador import BDControlador
 from estrutura.Empresa import Empresa
-from color_interface import *
+from estrutura.Endereco import Endereco
+from estrutura.Funcionario import Funcionario
+from Color_interface import *
 import tkinter as tk
 
 
