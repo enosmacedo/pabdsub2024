@@ -39,16 +39,18 @@ def variaveis_func(self):
     self.bairro = self.bairro_entry.get()
     self.num = self.num_entry.get()
     self.cep = self.cep_entry.get()
+    self.cnpj = self.cnpj_entry.get()
 
 def variaveis_emp(self):
     self.cnpj = self.cnpj_entry.get()
     self.nome = self.nome_entry.get()
     self.fone = self.fone_entry.get()
     self.email = self.email_entry.get()
+    self.cep = self.cep_entry.get()
     self.rua = self.rua_entry.get()
     self.bairro = self.bairro_entry.get()
     self.num = self.num_entry.get()
-    self.cep = self.cep_entry.get()
+
 
 def cadastrar_func(self):
     self.variaveis_func()
@@ -58,8 +60,8 @@ def cadastrar_func(self):
                             f"VALUES ('{self.cep}', '{self.rua}', '{self.bairro}', {self.num} )"
                             f"RETURNING id"
                             f")"
-                            f"INSERT INTO funcionario (cpf, nome_func, telefone_func, email_func, endereco_func)"
-                            f"SELECT '{self.cpf}', '{self.nome}', '{self.fone}', '{self.email}', id "
+                            f"INSERT INTO funcionario (cpf, nome_func, telefone_func, email_func, endereco_func, emp_func)"
+                            f"SELECT '{self.cpf}', '{self.nome}', '{self.fone}', '{self.email}', id,  {self.cnpj} "
                             f"FROM endereco_inserido;"
                         ) 
         self.conn.commit()
@@ -79,7 +81,7 @@ def cadastrar_emp(self):
                             f"RETURNING id"
                             f")"
                             f"INSERT INTO empresa (cnpj, nome, telefone, email, endereco_emp,cpf_func)"
-                            f"SELECT '{self.cnpj}', '{self.nome}', '{self.fone}', '{self.email}', id, {self.cpf} "
+                            f"SELECT '{self.cnpj}', '{self.nome}', '{self.fone}', '{self.email}', id "
                             f"FROM endereco_inserido;"
                         ) 
         self.conn.commit()
