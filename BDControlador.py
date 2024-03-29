@@ -10,15 +10,15 @@ def connect_database(databe_name, user_name, host_name, pass_, port_name):
     return conn
 
 def limpa_variaveis_emp(self):
-        self.cnpj_entry.delete(0,tk.END)
-        self.nome_entry.delete(0,tk.END)
-        self.fone_entry.delete(0,tk.END)
-        self.email_entry.delete(0,tk.END)
-        self.rua_entry.delete(0,tk.END)
-        self.bairro_entry.delete(0,tk.END)
-        self.num_entry.delete(0,tk.END)
-        self.cep_entry.delete(0,tk.END)
-        self.cpf_entry.delete(0,tk.END)
+    self.cnpj_entry.delete(0,tk.END)
+    self.nome_entry.delete(0,tk.END)
+    self.fone_entry.delete(0,tk.END)
+    self.email_entry.delete(0,tk.END)
+    self.rua_entry.delete(0,tk.END)
+    self.bairro_entry.delete(0,tk.END)
+    self.num_entry.delete(0,tk.END)
+    self.cep_entry.delete(0,tk.END)
+    self.cpf_entry.delete(0,tk.END)
 
 def limpa_variaveis_func(self):
     self.cpf_entry.delete(0,tk.END)
@@ -92,6 +92,6 @@ def cadastrar_emp(self):
         self.conn.close()
         self.limpa_variaveis_emp()
 
-def login(self):
-    return self.cad_func()
+def login_emp(self):
+    self.cadastro_func()
 
