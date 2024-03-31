@@ -10,20 +10,7 @@ class Interface:
     def __init__(self,login):
     
         self.login = login
-        self.controla_banco()
         self.janela_login()
-
-    def controla_banco(self):
-
-        self.databe_name = "vigilancia.com"
-        self.user_name = "postgres"
-        self.host_name = "localhost" 
-        self.pass_ = "@Edi170380"
-        self.port_name = 5432
-
-        self.controlador_banco = BDControlador()
-        self.controlador_banco.connect_database(self.databe_name, self.user_name, self.host_name, self.pass_, self.port_name)
-
     def janela_login(self,):
 
         self.loginEmp = BDControlador()
@@ -125,6 +112,14 @@ class Interface:
 
 
 if __name__ == '__main__':
+    databe_name = "vigilancia.com"
+    user_name = "postgres"
+    host_name = "localhost" 
+    pass_ = "@Edi170380"
+    port_name = 5432
+
+    controlador_banco = BDControlador()
+    controlador_banco.connect_database(databe_name, user_name, host_name, pass_, port_name)
     root=Tk()
     App=Interface(root)
     root.mainloop()

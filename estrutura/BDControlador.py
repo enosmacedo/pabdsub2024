@@ -145,7 +145,7 @@ class BDControlador:
                 self.cursor.execute(f"SELECT * FROM login_emp WHERE usuario = 'admin' AND senha = '123';")
                 resultado = self.cursor.fetchall()
                 if resultado:
-                    pass
+                    self.janela_cadsatrar_func()
                     
             except Exception as e:
                 print("Erro ao criar tabela:", e)
