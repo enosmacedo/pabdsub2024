@@ -1,6 +1,7 @@
 import psycopg2
 from estrutura.Empresa import Empresa
 import tkinter as tk
+import tkinter.messagebox as messagebox
 
 
 
@@ -139,14 +140,16 @@ class BDControlador:
         else:
             try:
                 self.cursor=self.conn.cursor()
-                self.cursor.execute(f"CREATE TABLE IF NOT EXISTS login_emp (usuario VARCHAR(50), senha VARCHAR(15));"
-                                f"INSERT INTO login_emp (usuario, senha) VALUES ('admin', '123');")
-                self.conn.commit()
-                self.cursor.execute(f"SELECT * FROM login_emp WHERE usuario = 'admin' AND senha = '123';")
+                self.cursor.execute("SELECT * FROM login_emp WHERE usuario = 'admin' AND senha = '123';")
                 resultado = self.cursor.fetchall()
-                if resultado:
-                    self.janela_cadsatrar_func()
+                self.usuario = self.user_entry.get()
+                self.senha = self.password_entry.get()
+                if self.usuario == resultado[0] and self.senha == resultado[1]:
+                    self.janela_cadastro_func()
                     
+                else:
+                    self.message = messagebox.showinfo('campos obrigatorios não preenchidos')  
+                           
             except Exception as e:
                 print("Erro ao criar tabela:", e)
 
