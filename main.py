@@ -3,7 +3,7 @@ from estrutura.BDControlador import BDControlador
 from estrutura.Empresa import Empresa
 from estrutura.Endereco import Endereco
 from estrutura.Funcionario import Funcionario
-from style.color_interface import color_interface
+from style.color_interface import *
 from tkinter import * 
 
 class Interface:
@@ -25,6 +25,8 @@ class Interface:
         self.controlador_banco.connect_database(self.databe_name, self.user_name, self.host_name, self.pass_, self.port_name)
 
     def janela_login(self,):
+
+        self.loginEmp = BDControlador()
     
         self.login.title("Login")
         self.login.configure(background= cor_fundo_login)
@@ -44,11 +46,11 @@ class Interface:
         self.password_label.place(relx=0.42, rely=0.4, relwidth=0.15, relheight=0.1)
         self.password_entry=Entry(self.login, bg= cor_entry, fg=cor_letra_entry_login, font=("Arial", 12), show="*")
         self.password_entry.place(relx=0.25, rely=0.5, relwidth=0.5, relheight=0.08)
-        self.btn=Button(self.login, text="Entrar", bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 12))
+        self.btn=Button(self.login, text="Entrar", bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 12),command=self.loginEmp.login_emp)
         self.btn.place(relx=0.4, rely=0.75, relwidth=0.2, relheight=0.1)
     
 
-    def cadastro_func(self):
+    def janela_cadastro_func(self):
         self.cad_func = Toplevel()
         self.cad_func.minsize(1200, 800)
         self.cad_func.resizable(False, False)
