@@ -1,9 +1,9 @@
-import psycopg2
+
 from estrutura.BDControlador import BDControlador
 from estrutura.Empresa import Empresa
 from estrutura.Endereco import Endereco
 from estrutura.Funcionario import Funcionario
-from color_interface import *
+from style.color_interface import color_interface
 from tkinter import * 
 
 class Interface:
