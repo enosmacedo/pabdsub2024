@@ -1,12 +1,15 @@
 from Controller import BDControlador
 import tkinter as tk
 from color_interface import *
-
+root = tk.Tk()
 class Interface():
     def __init__(self): 
+        self.login=root
         self.controlador_banco=BDControlador()
         self.connect_database()
         self.janela_login()
+        self.login.mainloop()
+       
 
     def connect_database(self):
         self.databe_name = "vigilancia.com"
@@ -16,7 +19,6 @@ class Interface():
         self.port_name = 5432
         self.controlador_banco.connect_database(self.databe_name, self.user_name, self.host_name, self.pass_, self.port_name)
     def janela_login(self):
-        self.login = tk.Tk()
         self.login.title("Login")
         self.login.configure(background= cor_fundo_login)
         self.login.minsize(400, 300)
@@ -128,6 +130,3 @@ class Interface():
 
 
 
-if __name__ == '__main__':
-    App = Interface()
-    App.mainloop()

@@ -69,7 +69,7 @@ class BDControlador:
         self.interface.cep_entry.delete(0,tk.END)
 
     def variaveis_func(self):
-        self.cpf = self.interface.cpf_entry.get()
+        self.cpf = self.cpf_entry.get()
         self.nome = self.interface.nome_entry.get()
         self.fone = self.interface.fone_entry.get()
         self.email = self.interface.email_entry.get()
