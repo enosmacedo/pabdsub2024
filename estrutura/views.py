@@ -51,6 +51,8 @@ class Interface():
         self.princ.grab_set()  
         
         self.frame_janela_principal = tk.Frame(self.princ, bg='lightgray', borderwidth=2, relief='raised')
+        self.recado=tk.Label(self.frame_janela_principal, text="Apenas para teste", bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 20))
+        self.recado.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.3)
         self.frame_janela_principal.place(relx=0.01, rely=0.01, relwidth=0.98, relheight=0.15)
         self.btn=tk.Button(self.princ, text="cadastrar funcionário", bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 12), command= self.janela_cadastro_func)
         self.btn.place(relx=0.4, rely=0.75, relwidth=0.2, relheight=0.1)
@@ -124,7 +126,7 @@ class Interface():
         self.cnpj_entry.place(relx=0.12, rely=0.5, relwidth=0.20, relheight=0.05)
 
         self.cadastro_funcionario = self.controlador_banco.cadastrar_func  
-        self.btn = tk.Button(self.frame2, text='Cadastrar', bg='gray', fg='white', font='arial 10 bold')
+        self.btn = tk.Button(self.frame2, text='Cadastrar', bg='gray', fg='white', font='arial 10 bold', command=self.cadastro_funcionario)
         self.btn.place(relx=0.80, rely=0.75, relwidth=0.10, relheight=0.05)
     
 
