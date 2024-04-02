@@ -1,4 +1,4 @@
-from views import Interface
+from estrutura.views import Interface
 
 
 

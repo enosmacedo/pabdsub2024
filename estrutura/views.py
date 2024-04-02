@@ -1,6 +1,6 @@
-from Controller import BDControlador
+from estrutura.Controller import BDControlador
 import tkinter as tk
-from color_interface import *
+from estrutura.color_interface import *
 root = tk.Tk()
 class Interface():
     def __init__(self): 
@@ -52,7 +52,7 @@ class Interface():
         
         self.frame_janela_principal = tk.Frame(self.princ, bg='lightgray', borderwidth=2, relief='raised')
         self.frame_janela_principal.place(relx=0.01, rely=0.01, relwidth=0.98, relheight=0.15)
-        self.btn=tk.Button(self.princ, text="Entrar", bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 12), command= self.janela_cadastro_func)
+        self.btn=tk.Button(self.princ, text="cadastrar funcionário", bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 12), command= self.janela_cadastro_func)
         self.btn.place(relx=0.4, rely=0.75, relwidth=0.2, relheight=0.1)
     
 
