@@ -29,15 +29,16 @@ class Interface():
 
         self.username_label=tk.Label(self.login, text="Usuário",bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 12))
         self.username_label.place(relx=0.42, rely=0.2 ,relwidth=0.15, relheight=0.1)
-        self.username_entry=tk.Entry(self.login, bg= cor_entry, fg=cor_letra_entry_login, border=1,  font=("Arial", 12))
-        self.username_entry.place(relx=0.25, rely=0.3, relwidth=0.5, relheight=0.08)
+        self.username_login=tk.Entry(self.login, bg= cor_entry, fg=cor_letra_entry_login, border=1,  font=("Arial", 12))
+        self.username_login.place(relx=0.25, rely=0.3, relwidth=0.5, relheight=0.08)
 
 
         self.password_label=tk.Label(self.login, text="Senha",bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 12))
         self.password_label.place(relx=0.42, rely=0.4, relwidth=0.15, relheight=0.1)
-        self.password_entry=tk.Entry(self.login, bg= cor_entry, fg=cor_letra_entry_login, font=("Arial", 12), show="*")
-        self.password_entry.place(relx=0.25, rely=0.5, relwidth=0.5, relheight=0.08)
-        self.btn=tk.Button(self.login, text="Entrar", bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 12), command= self.janela_principal)
+        self.password_login=tk.Entry(self.login, bg= cor_entry, fg=cor_letra_entry_login, font=("Arial", 12), show="*")
+        self.password_login.place(relx=0.25, rely=0.5, relwidth=0.5, relheight=0.08)
+        self.login_emp=self.controlador_banco.login_emp()
+        self.btn=tk.Button(self.login, text="Entrar", bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 12), command= self.login_emp)
         self.btn.place(relx=0.4, rely=0.75, relwidth=0.2, relheight=0.1)
     
     def janela_principal(self,):

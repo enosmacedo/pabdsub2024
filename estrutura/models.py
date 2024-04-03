@@ -4,6 +4,7 @@ class Empresa:
     
     
     def __init__(self, nome, cnpj, email, endereco):
+       
         self.nome = nome
         self.cnpj = cnpj
         self.email = email
@@ -32,7 +33,8 @@ class Empresa:
 
     def setEndereco(self, endereco):
         self.endereco = endereco
-        
+
+   
 class Funcionario:
 
     def __init__(self, nome, cpf, email, endereco):
@@ -96,3 +98,21 @@ class Endereco:
 
     def setCep(self, cep):
         self.cep = cep
+
+class Login_emp:
+
+    def __init__(self, nome, senha):
+        self.nome = nome
+        self.senha = senha
+
+    def getNome(self):
+        return self.nome
+
+    def getSenha(self):
+        return self.senha
+
+    def setNome(self, nome):
+        self.nome = nome
+
+    def setSenha(self, senha):
+        self.senha = senha

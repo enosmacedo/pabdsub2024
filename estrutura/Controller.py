@@ -1,6 +1,6 @@
 import psycopg2
 import tkinter as tk
-from estrutura.models import Endereco, Funcionario, Empresa
+from estrutura.models import Endereco, Funcionario, Empresa,Login_emp
 import tkinter.messagebox as messagebox
 
 
@@ -11,6 +11,8 @@ class BDControlador:
 
     def __init__(self):
         self.conn = None
+        
+
 
     def connect_database(self, databe_name, user_name, host_name, pass_, port_name):
         if self.conn == None:
@@ -48,46 +50,46 @@ class BDControlador:
             self.conn.close()
 
     def limpa_variaveis_emp(self):
-        self.cnpj_entry.delete(0,tk.END)
-        self.nome_entry.delete(0,tk.END)
-        self.fone_entry.delete(0,tk.END)
-        self.email_entry.delete(0,tk.END)
-        self.rua_entry.delete(0,tk.END)
-        self.bairro_entry.delete(0,tk.END)
-        self.num_entry.delete(0,tk.END)
-        self.cep_entry.delete(0,tk.END)
-        self.cpf_entry.delete(0,tk.END)
+        self.cnpj_emp.delete(0,tk.END)
+        self.nome_emp.delete(0,tk.END)
+        self.fone_emp.delete(0,tk.END)
+        self.email_emp.delete(0,tk.END)
+        self.rua_emp.delete(0,tk.END)
+        self.bairro_emp.delete(0,tk.END)
+        self.num_emp.delete(0,tk.END)
+        self.cep_emp.delete(0,tk.END)
 
     def limpa_variaveis_func(self):
-        self.cpf_entry.delete(0,tk.END)
-        self.nome_entry.delete(0,tk.END)
-        self.fone_entry.delete(0,tk.END)
-        self.email_entry.delete(0,tk.END)
-        self.rua_entry.delete(0,tk.END)
-        self.bairro_entry.delete(0,tk.END)
-        self.num_entry.delete(0,tk.END)
-        self.cep_entry.delete(0,tk.END)
+        self.cpf_func.delete(0,tk.END)
+        self.nome_func.delete(0,tk.END)
+        self.fone_func.delete(0,tk.END)
+        self.email_func.delete(0,tk.END)
+        self.rua_func.delete(0,tk.END)
+        self.bairro_func.delete(0,tk.END)
+        self.num_func.delete(0,tk.END)
+        self.cep_func.delete(0,tk.END)
+        self.cnpj_func.delete(0,tk.END)
 
     def variaveis_func(self):
-        self.cpf = self.cpf_entry.get()
-        self.nome = self.nome_entry.get()
-        self.fone = self.fone_entry.get()
-        self.email = self.email_entry.get()
-        self.rua = self.rua_entry.get()
-        self.bairro = self.bairro_entry.get()
-        self.num = self.num_entry.get()
-        self.cep = self.cep_entry.get()
-        self.cnpj = self.cnpj_entry.get()
+        self.cpf = self.cpf_func.get()
+        self.nome = self.nome_func.get()
+        self.fone = self.fone_func.get()
+        self.email = self.email_func.get()
+        self.rua = self.rua_func.get()
+        self.bairro = self.bairro_func.get()
+        self.num = self.num_func.get()
+        self.cep = self.cep_func.get()
+        self.cnpj = self.cnpj_func.get()
 
     def variaveis_emp(self):
-        self.cnpj = self.cnpj_entry.get()
-        self.nome = self.nome_entry.get()
-        self.fone = self.fone_entry.get()
-        self.email = self.email_entry.get()
-        self.cep = self.cep_entry.get()
-        self.rua = self.rua_entry.get()
-        self.bairro = self.bairro_entry.get()
-        self.num = self.num_entry.get()
+        self.cnpj = self.cnpj_emp.get()
+        self.nome = self.nome_emp.get()
+        self.fone = self.fone_emp.get()
+        self.email = self.email_emp.get()
+        self.cep = self.cep_emp.get()
+        self.rua = self.rua_emp.get()
+        self.bairro = self.bairro_emp.get()
+        self.num = self.num_emp.get()
 
 
     def cadastrar_func(self):
@@ -141,20 +143,20 @@ class BDControlador:
             print("Crie a conexao primeiro")
         else:
             try:
-                self.usuario = self.interface.username_entry.get()
-                self.senha = self.interface.password_entry.get()
+                self.usuario = self.username_login.get()
+                self.senha = self.password_login.get()
 
                 self.cursor=self.conn.cursor()
                 self.cursor.execute(f"SELECT * FROM login_emp WHERE usuario = '{self.usuario}' AND senha = '{self.senha}';")
                 resultado = self.cursor.fetchall()
                 
                 if resultado:
-                    self.interface.janela_cadastro_func()
-                    self.interface.username_entry.delete(0,tk.END)
-                    self.interface.password_entry.delete(0,tk.END)
+                    self.janela_principal()
+                    self.username_login.delete(0,tk.END)
+                    self.password_login.delete(0,tk.END)
                     
                 else:
-                    self.message = messagebox.showinfo('Senha incorreta oucampos obrigatorios não preenchidos')  
+                    self.message = messagebox.showinfo('Senha incorreta ou campos obrigatorios não preenchidos')  
                            
             except Exception as e:
                 print("Erro ao criar tabela:", e)
