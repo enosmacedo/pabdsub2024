@@ -115,7 +115,7 @@ class BDControlador:
                 self.conn.close()
                 self.limpa_variaveis_func()
         
-    def cadastrar_emp(self):
+    def cadastrar_emp(self, cep, rua):
         self.variaveis_emp()
         if self.conn == None:
             print("Crie a conexao primeiro")
@@ -123,7 +123,7 @@ class BDControlador:
             try:
                 self.cursor = self.conn.cursor()
                 self.cursor.execute(f"WITH endereco_inserido AS (INSERT INTO endereco (cep, rua, bairro, numero)"
-                                    f"VALUES ('{self.cep}', '{self.rua}', '{self.bairro}', {self.num} )"
+                                    f"VALUES ('{cep}', '{rua}', '{self.bairro}', {self.num} )"
                                     f"RETURNING id"
                                     f")"
                                     f"INSERT INTO empresa (cnpj, nome, telefone, email, endereco_emp,cpf_func)"
