@@ -1,6 +1,6 @@
 import psycopg2
 import tkinter as tk
-from estrutura.models import Endereco, Funcionario, Empresa,Login_emp
+from estrutura.Empresa import Endereco, Funcionario, Empresa,Login_emp
 import tkinter.messagebox as messagebox
 
 
