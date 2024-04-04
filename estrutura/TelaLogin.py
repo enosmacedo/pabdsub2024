@@ -39,7 +39,13 @@ class TelaLogin():
         self.password_login.place(relx=0.25, rely=0.5, relwidth=0.5, relheight=0.08)
         self.usuario = self.username_login.get()
         self.senha = self.password_login.get()
-        self.login_emp=self.controlador_banco.login_emp(self.usuario, self.senha)
+        self.login_senha =self.controlador_banco.get_password(self.usuario)
+        if login_senha == self.senha:
+            #Deu certo. Login aceito.
+            #Passe para a proxima tela.
+        else:
+            return messagebox.showwarning("Erro", "Login ou senha inválidos")
+
         self.btn=tk.Button(self.login, text="Entrar", bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 12), command= self.login_emp)
         self.btn.place(relx=0.4, rely=0.75, relwidth=0.2, relheight=0.1)
     
