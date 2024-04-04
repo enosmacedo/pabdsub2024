@@ -1,7 +1,9 @@
 import psycopg2
 import tkinter as tk
-from estrutura.Empresa import Endereco, Funcionario, Empresa,Login_emp
-import tkinter.messagebox as messagebox
+from tkinter import messagebox
+from estrutura.Empresa import Empresa
+from estrutura.Funcionario import Funcionario
+from estrutura.Login import Login
 
 
 
@@ -49,62 +51,19 @@ class BDControlador:
             cursor.close()
             self.conn.close()
 
-    def limpa_variaveis_emp(self):
-        self.cnpj_emp.delete(0,tk.END)
-        self.nome_emp.delete(0,tk.END)
-        self.fone_emp.delete(0,tk.END)
-        self.email_emp.delete(0,tk.END)
-        self.rua_emp.delete(0,tk.END)
-        self.bairro_emp.delete(0,tk.END)
-        self.num_emp.delete(0,tk.END)
-        self.cep_emp.delete(0,tk.END)
-
-    def limpa_variaveis_func(self):
-        self.cpf_func.delete(0,tk.END)
-        self.nome_func.delete(0,tk.END)
-        self.fone_func.delete(0,tk.END)
-        self.email_func.delete(0,tk.END)
-        self.rua_func.delete(0,tk.END)
-        self.bairro_func.delete(0,tk.END)
-        self.num_func.delete(0,tk.END)
-        self.cep_func.delete(0,tk.END)
-        self.cnpj_func.delete(0,tk.END)
-
-    def variaveis_func(self):
-        self.cpf = self.cpf_func.get()
-        self.nome = self.nome_func.get()
-        self.fone = self.fone_func.get()
-        self.email = self.email_func.get()
-        self.rua = self.rua_func.get()
-        self.bairro = self.bairro_func.get()
-        self.num = self.num_func.get()
-        self.cep = self.cep_func.get()
-        self.cnpj = self.cnpj_func.get()
-
-    def variaveis_emp(self):
-        self.cnpj = self.cnpj_emp.get()
-        self.nome = self.nome_emp.get()
-        self.fone = self.fone_emp.get()
-        self.email = self.email_emp.get()
-        self.cep = self.cep_emp.get()
-        self.rua = self.rua_emp.get()
-        self.bairro = self.bairro_emp.get()
-        self.num = self.num_emp.get()
-
-
-    def cadastrar_func(self):
-        self.variaveis_func()
+    
+    def cadastrar_func(self, cep, rua, bairro, num, cpf, nome, fone, email, cnpj):
         if self.conn == None:
             print("Crie a conexao primeiro")
         else:
             try:
                 self.cursor = self.conn.cursor()
                 self.cursor.execute(f"WITH endereco_inserido AS (INSERT INTO endereco (cep, rua, bairro, numero)"
-                                    f"VALUES ('{self.cep}', '{self.rua}', '{self.bairro}', {self.num} )"
+                                    f"VALUES ('{cep}', '{rua}', '{bairro}', {num} )"
                                     f"RETURNING id"
                                     f")"
                                     f"INSERT INTO funcionario (cpf, nome_func, telefone_func, email_func, endereco_func, emp_func)"
-                                    f"SELECT '{self.cpf}', '{self.nome}', '{self.fone}', '{self.email}', id,  {self.cnpj} "
+                                    f"SELECT '{cpf}', '{nome}', '{fone}', '{email}', id,  {cnpj} "
                                     f"FROM endereco_inserido;"
                             ) 
                 self.conn.commit()
@@ -113,21 +72,19 @@ class BDControlador:
                 print('Erro ao cadastrar o funcionário:', e)
             finally:
                 self.conn.close()
-                self.limpa_variaveis_func()
         
-    def cadastrar_emp(self, cep, rua):
-        self.variaveis_emp()
+    def cadastrar_emp(self, cep, rua, bairro, num, cnpj, nome, fone, email):
         if self.conn == None:
             print("Crie a conexao primeiro")
         else:
             try:
                 self.cursor = self.conn.cursor()
                 self.cursor.execute(f"WITH endereco_inserido AS (INSERT INTO endereco (cep, rua, bairro, numero)"
-                                    f"VALUES ('{cep}', '{rua}', '{self.bairro}', {self.num} )"
+                                    f"VALUES ('{cep}', '{rua}', '{bairro}', {num} )"
                                     f"RETURNING id"
                                     f")"
                                     f"INSERT INTO empresa (cnpj, nome, telefone, email, endereco_emp,cpf_func)"
-                                    f"SELECT '{self.cnpj}', '{self.nome}', '{self.fone}', '{self.email}', id "
+                                    f"SELECT '{cnpj}', '{nome}', '{fone}', '{email}', id "
                                     f"FROM endereco_inserido;"
                             ) 
                 self.conn.commit()
@@ -136,29 +93,28 @@ class BDControlador:
                 print('Erro ao cadastrar o funcionário:', e)
             finally:
                 self.conn.close()
-                self.limpa_variaveis_emp()
 
-    def login_emp(self):
-        if self.conn == None:
+    def login_emp(self,usuario, senha):
+        if self.conn is None:
             print("Crie a conexao primeiro")
         else:
             try:
-                self.usuario = self.username_login.get()
-                self.senha = self.password_login.get()
-
                 self.cursor=self.conn.cursor()
-                self.cursor.execute(f"SELECT * FROM login_emp WHERE usuario = '{self.usuario}' AND senha = '{self.senha}';")
-                resultado = self.cursor.fetchall()
+                self.cursor.execute(f"SELECT * FROM login_emp WHERE usuario = '{usuario}' AND senha = '{senha}';")
+                resultado = self.cursor.fetchone()
                 
                 if resultado:
-                    self.janela_principal()
-                    self.username_login.delete(0,tk.END)
-                    self.password_login.delete(0,tk.END)
-                    
+                    usuario, senha = resultado
+                    resposta = Login(usuario, senha)
+                    return resposta
                 else:
-                    self.message = messagebox.showinfo('Senha incorreta ou campos obrigatorios não preenchidos')  
+                    return messagebox.showwarning("Erro", "Login ou senha inválidos")
                            
             except Exception as e:
-                print("Erro ao criar tabela:", e)
+                print('Erro ao cadastrar o funcionário:', e)
+            finally:
+                if self.conn:
+                    self.conn.close()
+                
 
 

@@ -1,17 +1,17 @@
-class Login_emp:
+class Login:
 
-    def __init__(self, nome, senha):
-        self.nome = nome
+    def __init__(self, usuario, senha):
+        self.usuario = usuario
         self.senha = senha
 
-    def getNome(self):
-        return self.nome
+    def getUsuario(self):
+        return self.usuario
 
     def getSenha(self):
         return self.senha
 
-    def setNome(self, nome):
-        self.nome = nome
+    def setUsuario(self, usuario):
+        self.usuario = usuario
 
     def setSenha(self, senha):
         self.senha = senha
