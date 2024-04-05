@@ -1,6 +1,4 @@
 import psycopg2
-import tkinter as tk
-from tkinter import messagebox
 from estrutura.Empresa import Empresa
 from estrutura.Funcionario import Funcionario
 from estrutura.Login import Login
@@ -94,7 +92,7 @@ class BDControlador:
             finally:
                 self.conn.close()
 
-    def login_emp(self,usuario, senha):
+    def get_password(self,usuario, senha):
         if self.conn is None:
             print("Crie a conexao primeiro")
         else:
@@ -108,10 +106,9 @@ class BDControlador:
                     resposta = Login(usuario, senha)
                     return resposta
                 else:
-                    return messagebox.showwarning("Erro", "Login ou senha inválidos")
-                           
+                    return None         
             except Exception as e:
-                print('Erro ao cadastrar o funcionário:', e)
+                print('Erro: ', e)
             finally:
                 if self.conn:
                     self.conn.close()

@@ -1,6 +1,8 @@
 from estrutura.Controller import BDControlador
+from interface.TelaPrincipal import TelaPrincipal
 import tkinter as tk
 from estrutura.color_interface import *
+from tkinter import messagebox
 root = tk.Tk()
 class TelaLogin():
     def __init__(self): 
@@ -37,19 +39,25 @@ class TelaLogin():
         self.password_label.place(relx=0.42, rely=0.4, relwidth=0.15, relheight=0.1)
         self.password_login=tk.Entry(self.login, bg= cor_entry, fg=cor_letra_entry_login, font=("Arial", 12), show="*")
         self.password_login.place(relx=0.25, rely=0.5, relwidth=0.5, relheight=0.08)
-        self.usuario = self.username_login.get()
-        self.senha = self.password_login.get()
-        self.login_senha =self.controlador_banco.get_password(self.usuario)
-        if login_senha == self.senha:
-            #Deu certo. Login aceito.
-            #Passe para a proxima tela.
-        else:
-            return messagebox.showwarning("Erro", "Login ou senha inválidos")
 
-        self.btn=tk.Button(self.login, text="Entrar", bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 12), command= self.login_emp)
+        self.btn=tk.Button(self.login, text="Entrar", bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 12), command= self.acessar_login)
         self.btn.place(relx=0.4, rely=0.75, relwidth=0.2, relheight=0.1)
     
-    
+
+    def acessar_login(self):
+        usuario = self.username_login.get()
+        senha = self.password_login.get()
+        login_correto = self.controlador_banco.get_password(usuario, senha)
+        if login_correto is not None and login_correto.getUsuario() == usuario and login_correto.getSenha() == senha:
+             self.tela_principal = TelaPrincipal().janela_principal()
+             self.username_login.delete(0, tk.END)
+             self.password_login.delete(0, tk.END)
+             self.login.destroy()
+            
+            
+        else:
+            messagebox.showwarning("Erro", "Login ou senha inválidos")
+
 
     
     

@@ -1,6 +1,5 @@
 
 import tkinter as tk
-from interface.TelaPrincipal import TelaPrincipal
 from estrutura.Controller import BDControlador
 from estrutura.color_interface import *
 class TelaCadastroFunc:
