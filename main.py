@@ -1,4 +1,4 @@
-from estrutura.TelaLogin import TelaLogin
+from interface.TelaLogin import TelaLogin
 
 
 

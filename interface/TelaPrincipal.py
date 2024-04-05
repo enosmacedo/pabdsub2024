@@ -1,8 +1,8 @@
 
 import tkinter as tk
 from estrutura.color_interface import *
-from estrutura.TelaCadastroFunc import TelaCadastroFunc
-from estrutura.TelaCadastroEmp import TelaCadastroEmp
+from interface.TelaCadastroFunc import TelaCadastroFunc
+from interface.TelaCadastroEmp import TelaCadastroEmp
 class TelaPrincipal():
     def __init__(self):
         self.tela_cad_func = TelaCadastroFunc()
