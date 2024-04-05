@@ -98,7 +98,7 @@ class BDControlador:
         else:
             try:
                 self.cursor=self.conn.cursor()
-                self.cursor.execute(f"SELECT * FROM login_emp WHERE usuario = '{usuario}' AND senha = '{senha}';")
+                self.cursor.execute(f"SELECT * FROM usuario WHERE login = '{usuario}' AND senha = {senha}")
                 resultado = self.cursor.fetchone()
                 
                 if resultado:
