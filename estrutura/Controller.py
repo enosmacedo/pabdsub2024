@@ -109,9 +109,7 @@ class BDControlador:
                     return None         
             except Exception as e:
                 print('Erro: ', e)
-            finally:
-                if self.conn:
-                    self.conn.close()
+            
                 
 
 
