@@ -98,18 +98,22 @@ class BDControlador:
         else:
             try:
                 self.cursor=self.conn.cursor()
-                self.cursor.execute(f"SELECT * FROM usuario WHERE login = '{usuario}' AND senha = {senha}")
+                self.cursor.execute(f"SELECT login,senha FROM usuario WHERE login = '{usuario}' AND senha = {senha}")
                 resultado = self.cursor.fetchone()
                 
                 if resultado:
                     usuario, senha = resultado
                     resposta = Login(usuario, senha)
                     return resposta
+                    
                 else:
                     return None         
             except Exception as e:
                 print('Erro: ', e)
             
+            finally:
+            
+                self.conn.close()
                 
 
 

@@ -5,8 +5,7 @@ from interface.TelaCadastroFunc import TelaCadastroFunc
 from interface.TelaCadastroEmp import TelaCadastroEmp
 class TelaPrincipal():
     def __init__(self):
-        self.tela_cad_func = TelaCadastroFunc()
-        self.tela_cad_emp = TelaCadastroEmp()
+       
         self.janela_principal()
 
     def janela_principal(self,):
@@ -27,10 +26,4 @@ class TelaPrincipal():
 
 
 
-        self.btn=tk.Button(self.princ, text="cadastrar funcionário", bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 8),
-                            command= self.tela_cad_func.janela_cadastro_func)
-        self.btn.place(relx=0.1, rely=0.75, relwidth=0.12, relheight=0.08)
-        self.btn=tk.Button(self.princ, text="cadastrar Empresa", bg= cor_fundo_login, fg=cor_letra_login, font=("Arial", 8),
-                            command= self.tela_cad_emp.janela_cadastro_emp)
-        self.btn.place(relx=0.3, rely=0.75, relwidth=0.12, relheight=0.08)
-    
+       

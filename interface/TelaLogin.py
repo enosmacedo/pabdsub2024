@@ -8,6 +8,7 @@ class TelaLogin():
     def __init__(self): 
         self.login=root
         self.controlador_banco=BDControlador()
+
         self.connect_database()
         self.janela_login()
         self.login.mainloop()
@@ -47,16 +48,16 @@ class TelaLogin():
     def acessar_login(self):
         usuario = self.username_login.get()
         senha = self.password_login.get()
-        login_correto = self.controlador_banco.get_password(usuario, senha)
-        if login_correto is not None and login_correto.getUsuario() == usuario and login_correto.getSenha() == senha:
-             self.tela_principal = TelaPrincipal().janela_principal()
-             self.username_login.delete(0, tk.END)
-             self.password_login.delete(0, tk.END)
-             self.login.destroy()
+        password = self.controlador_banco.get_password(usuario, senha)
+        if password is not None:
             
-            
+            self.tela_principal = TelaPrincipal().janela_principal()
+            self.login.destroy()
         else:
-            messagebox.showwarning("Erro", "Login ou senha inválidos")
+            msg="Login ou senha inválidos"
+            msg+="\n ou Campos vazios, Tente novamente"
+            messagebox.showinfo("Erro", msg)
+            
 
 
     
