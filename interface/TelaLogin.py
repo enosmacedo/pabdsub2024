@@ -49,7 +49,7 @@ class TelaLogin():
         password = self.controlador_banco.get_password(usuario, senha)
         if password is not None:
             self.login.destroy()
-            tela_lista = TelaListaEscala()
+            TelaListaEscala()
             
         else:
             self.limpar_campos()
