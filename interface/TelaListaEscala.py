@@ -1,6 +1,9 @@
 from estrutura.Controller import BDControlador
+from tkinter import *
+from tkinter import messagebox
 import tkinter as tk
-import tkinter as ttk
+from tkinter import ttk
+
 
 class TelaListaEscala():
     def __init__(self):
@@ -33,7 +36,7 @@ class TelaListaEscala():
         self.btn_cad= tk.Button(self.frame,bg="lightgray", text="Cadastrar Escala")
         self.btn_cad.place(relx=0.8, rely=0.70, relwidth=0.10, relheight=0.20)
 
-        self.lista_escala= ttk.Treeview(self.frame2, height=3, column=("col_1","col_2","col_3","col_4","col_5","col_6","col_7","col_8","col_9","col_10","col11") )
+        self.lista_escala = ttk.Treeview (self.frame2, height=3, column=("col_1","col_2","col_3","col_4","col_5","col_6","col_7","col_8","col_9","col_10","col11") )
         self.lista_escala.heading ("#0", text= "")
         self.lista_escala.heading ("#1",text="CPF")
         self.lista_escala.heading ("#2",text="Regist. Geral")
@@ -65,7 +68,7 @@ class TelaListaEscala():
 
         #barra de rolagem 
         self.rolagem_lista_escala=Scrollbar(self.frame2, orient="vertical")
-        self.lista_escala.configure(yscroll= self.rolagem_lista_cliente.set)
+        self.lista_escala.configure(yscroll= self.rolagem_lista_escala.set)
         self.rolagem_lista_escala.place(relx=0.96,rely=0.01, relwidth=0.03,relheight=0.85)
 
         self.lista_escala.bind("<Double-1>", self.duplo_click_cliente)
