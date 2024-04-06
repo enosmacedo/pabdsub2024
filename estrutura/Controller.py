@@ -112,8 +112,8 @@ class BDControlador:
                 print('Erro: ', e)
             
             finally:
-            
-                self.conn.close()
+                if self.cursor:
+                    self.cursor.close()
                 
 
 

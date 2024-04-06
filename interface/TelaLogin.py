@@ -1,5 +1,5 @@
 from estrutura.Controller import BDControlador
-from interface.TelaPrincipal import TelaPrincipal
+from interface.TelaListaEscala import TelaListaEscala
 import customtkinter
 import tkinter as tk
 from estrutura.color_interface import *
@@ -48,9 +48,9 @@ class TelaLogin():
         senha = self.password_login.get()
         password = self.controlador_banco.get_password(usuario, senha)
         if password is not None:
-            
-            messagebox.showinfo("Login", "Login efetuado com sucesso")
             self.login.destroy()
+            tela_lista = TelaListaEscala()
+            
         else:
             self.limpar_campos()
             msg="Login ou senha inválidos"
@@ -59,5 +59,4 @@ class TelaLogin():
             
 
 
-    
     
