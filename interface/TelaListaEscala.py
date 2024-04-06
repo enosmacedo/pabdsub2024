@@ -4,10 +4,10 @@ import tkinter as tk
 class TelaListaEscala():
     def __init__(self):
         self.controlador_banco = BDControlador()
-        self.connect_database()
+        self.conectar_banco()
         self.janela_lista_escala()
 
-    def connect_database(self):
+    def conectar_banco(self):
         self.databe_name = "vigilancia.com"
         self.user_name = "postgres"
         self.host_name = "localhost" 
@@ -17,18 +17,17 @@ class TelaListaEscala():
 
     def janela_lista_escala(self,):
         self.list = tk.Toplevel()
-        self.list.title("Janela principal")
+        self.list.title("Lista de Escalas")
         self.list.minsize(1200, 800)
-        self.list.transient(login)
         self.list.resizable(False, False)
         self.list.configure(background= "lightgray")
          
-        
-        self.frame_janela_Lista = tk.Frame(self.list, bg="lightgray", borderwidth=2, relief='raised')
-        self.frame_janela_Lista.place(relx=0.01, rely=0.01, relwidth=0.98, relheight=0.3)
-        self.recado=tk.Label(self.frame_janela_Lista, text="Apenas para teste", bg= "gray", fg="white", font=("Arial", 20))
-        self.recado.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.1)
-        self.recado1=tk.Label(self.frame_janela_Lista, text="janela a definir funções", bg= "gray", fg= "white", font=("Arial", 20))
-        self.recado1.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.1)
+        self.frame = tk.Frame(self.list, bg='lightgray', borderwidth=2, relief='raised')
+        self.frame.place(relx=0.01, rely=0.01, relwidth=0.98, relheight=0.20)
+        self.frame2 = tk.Frame(self.list, bg='green', borderwidth=2, relief='raised')
+        self.frame2.place(relx=0.01, rely=0.23, relwidth=0.98, relheight=0.75)
 
-        
+        self.nomeempresa = tk.Label(self.frame, text='Vigilancia.com',bg='lightgray', font='arial 40 bold')
+        self.nomeempresa.place(relx=0.02, rely=0.02, relwidth=0.96, relheight=0.45)
+        self.btn_cad= tk.Button(self.frame,bg="lightgray", text="Cadastrar Escala")
+        self.btn_cad.place(relx=0.8, rely=0.70, relwidth=0.10, relheight=0.20)
