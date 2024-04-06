@@ -19,6 +19,7 @@ class TelaListaEscala():
         self.list = tk.Toplevel()
         self.list.title("Janela principal")
         self.list.minsize(1200, 800)
+        self.list.transient(login)
         self.list.resizable(False, False)
         self.list.configure(background= "lightgray")
          
