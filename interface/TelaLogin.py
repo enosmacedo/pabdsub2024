@@ -40,16 +40,19 @@ class TelaLogin():
         self.password_login.place(relx=0.2,rely=0.5, relwidth=0.6,relheight=0.15)
         self.btn_login.place(relx=0.29,rely=0.72, relwidth=0.4,relheight=0.15)
 
-
+    def limpar_campos(self):
+        self.username_login.delete(0, tk.END)
+        self.password_login.delete(0, tk.END)
     def acessar_login(self):
         usuario = self.username_login.get()
         senha = self.password_login.get()
         password = self.controlador_banco.get_password(usuario, senha)
         if password is not None:
             
-            self.tela_principal = TelaPrincipal().janela_principal()
+            messagebox.showinfo("Login", "Login efetuado com sucesso")
             self.login.destroy()
         else:
+            self.limpar_campos()
             msg="Login ou senha inválidos"
             msg+="\n ou Campos vazios, Tente novamente"
             messagebox.showinfo("Erro", msg)
