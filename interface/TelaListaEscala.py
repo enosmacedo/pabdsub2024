@@ -1,4 +1,5 @@
 from estrutura.Controller import BDControlador
+from interface.TelaCadastroEmp import TelaCadastroEmp
 from tkinter import *
 import tkinter as tk
 from tkinter import messagebox
@@ -88,27 +89,35 @@ class TelaListaEscala():
         self.lista_escala.configure(yscroll= self.rolagem_lista_escala.set)
         self.rolagem_lista_escala.place(relx=0.97,rely=0.08, relwidth=0.015,relheight=0.9)
 
-        self.lista_escala.bind("<Double-1>", self.duplo_click_escala)
+        self.lista_escala.bind("<double-1>", self.duplo_click_escala)
 
     
 
     def get_escala(self):
         
         resp= self.controlador_banco.getEscala()
-        if resp is not None:
-            self.lista_escala.delete(*self.lista_escala.get_children())
-            for i in resp:
-                self.lista_escala.insert("", tk.END, values=i)
-        else:
-            messagebox.showinfo(title="Erro", message="Nenhuma Escala Cadastrada")
+        self.lista_escala.delete(*self.lista_escala.get_children())
+        for i in resp:
+            self.lista_escala.insert("", tk.END, values=i)
+        
+    
 
 
     def duplo_click_escala(self, event):
+        tela=TelaCadastroEmp()
         self.lista_escala.selection()
 
         for i in self.lista_escala.selection():
-            col1=self.lista_escala.item(i, 'values')
-            self.entrada_buscar.insert(tk.END,col1)
+           
+            col1, col2, col3, col4, col5, col6 = self.lista_escala.item(i, 'values')
+            self.entrys = tela.janela_cadastro_emp()
+            self.entrys.cnpj_emp.insert(tk.END,col1)
+            self.entrys.fone_emp.insert(tk.END,col2)
+            self.entrys.email_emp.insert(tk.END,col3)
+            self.entrys.nome_emp.insert(tk.END,col4)
+            self.entrys.rua_emp.insert(tk.END,col5)
+            self.entrys.num_emp.insert(tk.END,col6)
+            
             
 
 

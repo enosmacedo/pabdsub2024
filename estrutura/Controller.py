@@ -122,12 +122,7 @@ class BDControlador:
             self.cursor=self.conn.cursor()
             self.cursor.execute(f"SELECT  nome, data_entrada, data_saida, hora_entrada, hora_saida, nome_emp FROM escala ORDER BY nome ASC ; ")
             resultado= self.cursor.fetchall()
-            if resultado:
-                nome, data_entrada, data_saida, hora_entrada, hora_saida, nome_emp = resultado
-                resposta = Escala(nome, data_entrada, data_saida, hora_entrada, hora_saida, nome_emp)
-                print(resposta)
-
-            return resposta
+            return resultado
 
         except Exception as e:
             print('Erro: ', e)

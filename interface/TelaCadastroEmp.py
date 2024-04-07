@@ -69,7 +69,7 @@ class TelaCadastroEmp():
         self.cep_emp = tk.Entry(self.frame4)
         self.cep_emp.place(relx=0.75, rely=0.39, relwidth=0.1, relheight=0.05)
  
-        self.btn = tk.Button(self.frame4, text='Cadastrar', bg='gray', fg='white', font='arial 10 bold', command=self.controle.cadastrar_emp)
+        self.btn = tk.Button(self.frame4, text='Cadastrar', bg='gray', fg='white', font='arial 10 bold')
         self.btn.place(relx=0.80, rely=0.75, relwidth=0.10, relheight=0.05)
     
 
