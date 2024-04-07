@@ -116,15 +116,16 @@ class BDControlador:
                 if self.cursor:
                     self.cursor.close()
                 
-    def getEscala(self, nome):
+    def getEscala(self):
         try:
             #self.lista_escala.delete(*self.lista_escala.get_children())
             self.cursor=self.conn.cursor()
-            self.cursor.execute(f"SELECT nome FROM escala wehere nome ={nome} ; ")
+            self.cursor.execute(f"SELECT  nome, data_entrada, data_saida, hora_entrada, hora_saida, nome_emp FROM escala ORDER BY nome ASC ; ")
             resultado= self.cursor.fetchall()
             if resultado:
-                nome = resultado
-                resposta = Escala(nome, None, None, None, None, None)
+                nome, data_entrada, data_saida, hora_entrada, hora_saida, nome_emp = resultado
+                resposta = Escala(nome, data_entrada, data_saida, hora_entrada, hora_saida, nome_emp)
+                print(resposta)
 
             return resposta
 

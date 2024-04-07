@@ -50,12 +50,12 @@ class TelaListaEscala():
 
         image_visualizar = PhotoImage(file="img/olho.png")
         image_visualizar = image_visualizar.subsample(2,2)
-        self.botao_delete = tk.Button(self.frame2, image=image_visualizar, bg="lightgray",command=self.get_escala)
+        self.botao_delete = tk.Button(self.frame2, text="Visualizar", bg="lightgray", command=self.get_escala)
         self.botao_delete.place(relx=0.8, rely=0.02, relwidth=0.05, relheight=0.05)
 
         image_delete = PhotoImage(file="img/delete.png")
         image_delete = image_delete.subsample(2,2)
-        self.btn_delete = tk.Button(self.frame2, image=image_delete, bg="lightgray")
+        self.btn_delete = tk.Button(self.frame2, text="Delete", bg="lightgray")
         self.btn_delete.place(relx=0.88, rely=0.02, relwidth=0.05, relheight=0.05)
         
 
@@ -93,13 +93,16 @@ class TelaListaEscala():
     
 
     def get_escala(self):
-        nome=self.entrada_buscar.get()
-        resp= self.controlador_banco.getEscala(nome)
+        
+        resp= self.controlador_banco.getEscala()
         if resp is not None:
             self.lista_escala.delete(*self.lista_escala.get_children())
             for i in resp:
                 self.lista_escala.insert("", tk.END, values=i)
-        
+        else:
+            messagebox.showinfo(title="Erro", message="Nenhuma Escala Cadastrada")
+
+
     def duplo_click_escala(self, event):
         self.lista_escala.selection()
 
