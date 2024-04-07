@@ -1,6 +1,7 @@
 import psycopg2
 from estrutura.Empresa import Empresa
 from estrutura.Funcionario import Funcionario
+from estrutura.Escala import Escala
 from estrutura.Login import Login
 
 
@@ -115,5 +116,36 @@ class BDControlador:
                 if self.cursor:
                     self.cursor.close()
                 
+    def select_lista_escala(self,nome,data_entrada,data_saida,hora_entrada,hora_saida,nome_emp):
+        try:
+            #self.lista_escala.delete(*self.lista_escala.get_children())
+            self.cursor=self.conn.cursor()
+            self.cursor.execute("SELECT nome,data_entrada,data_saida,hora_entrada,hora_saida,nome_emp FROM escala ORDER BY nome ASC ; ")
+            resultado= self.cursor.fetchall()
+            if resultado:
+                nome, data_entrada, data_saida, hora_entrada, hora_saida, nome_emp  = resultado
+                resposta = Escala(nome, data_entrada, data_saida, hora_entrada, hora_saida, nome_emp)
+
+            return resposta
+
+        except Exception as e:
+            print('Erro: ', e)
+
+        finally:
+            if self.cursor:
+                self.cursor.close()
+
+
+
+            
+            for medico in var_lista_escala:
+                self.lista_medico.insert('', tk.END, values=medico)
+
+            
+        except psycopg2.Error as e:
+            print("ERRO")
+        finally:
+            if self.cursor:
+                self.cursor.close()
 
 

@@ -88,6 +88,20 @@ class TelaListaEscala():
         self.lista_escala.configure(yscroll= self.rolagem_lista_escala.set)
         self.rolagem_lista_escala.place(relx=0.97,rely=0.08, relwidth=0.015,relheight=0.9)
 
-        self.lista_escala.bind("<Double-1>", self.duplo_click_cliente)
+        self.lista_escala.bind("<Double-1>", self.duplo_click_escala)
+
+    def duplo_click_escala(self, event):
+        self.limpar_tela_med()
+        self.lista_escala.selection()
+
+        for i in self.lista_escala.selection():
+            col1, col2, col3, col4, col5, col6=self.lista_escala.item(i, 'values')
+            self.ent_rg.insert(tk.END,col1)
+            self.ent_crm.insert(tk.END,col2)
+            self.ent_especialidade.insert(tk.END,col3)
+            self.ent_nome.insert(tk.END,col4)
+            self.ent_rua.insert(tk.END,col5)
+            self.ent_bairro.insert(tk.END,col6)
+            
 
 
