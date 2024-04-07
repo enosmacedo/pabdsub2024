@@ -116,15 +116,15 @@ class BDControlador:
                 if self.cursor:
                     self.cursor.close()
                 
-    def select_lista_escala(self,nome,data_entrada,data_saida,hora_entrada,hora_saida,nome_emp):
+    def getEscala(self, nome):
         try:
             #self.lista_escala.delete(*self.lista_escala.get_children())
             self.cursor=self.conn.cursor()
-            self.cursor.execute("SELECT nome,data_entrada,data_saida,hora_entrada,hora_saida,nome_emp FROM escala ORDER BY nome ASC ; ")
+            self.cursor.execute(f"SELECT nome FROM escala wehere nome ={nome} ; ")
             resultado= self.cursor.fetchall()
             if resultado:
-                nome, data_entrada, data_saida, hora_entrada, hora_saida, nome_emp  = resultado
-                resposta = Escala(nome, data_entrada, data_saida, hora_entrada, hora_saida, nome_emp)
+                nome = resultado
+                resposta = Escala(nome, None, None, None, None, None)
 
             return resposta
 
@@ -138,14 +138,5 @@ class BDControlador:
 
 
             
-            for medico in var_lista_escala:
-                self.lista_medico.insert('', tk.END, values=medico)
-
-            
-        except psycopg2.Error as e:
-            print("ERRO")
-        finally:
-            if self.cursor:
-                self.cursor.close()
-
+           
 

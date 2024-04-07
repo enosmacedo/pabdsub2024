@@ -50,7 +50,7 @@ class TelaListaEscala():
 
         image_visualizar = PhotoImage(file="img/olho.png")
         image_visualizar = image_visualizar.subsample(2,2)
-        self.botao_delete = tk.Button(self.frame2, image=image_visualizar, bg="lightgray")
+        self.botao_delete = tk.Button(self.frame2, image=image_visualizar, bg="lightgray",command=self.get_escala)
         self.botao_delete.place(relx=0.8, rely=0.02, relwidth=0.05, relheight=0.05)
 
         image_delete = PhotoImage(file="img/delete.png")
@@ -90,18 +90,22 @@ class TelaListaEscala():
 
         self.lista_escala.bind("<Double-1>", self.duplo_click_escala)
 
+    
+
+    def get_escala(self):
+        nome=self.entrada_buscar.get()
+        resp= self.controlador_banco.getEscala(nome)
+        if resp is not None:
+            self.lista_escala.delete(*self.lista_escala.get_children())
+            for i in resp:
+                self.lista_escala.insert("", tk.END, values=i)
+        
     def duplo_click_escala(self, event):
-        self.limpar_tela_med()
         self.lista_escala.selection()
 
         for i in self.lista_escala.selection():
-            col1, col2, col3, col4, col5, col6=self.lista_escala.item(i, 'values')
-            self.ent_rg.insert(tk.END,col1)
-            self.ent_crm.insert(tk.END,col2)
-            self.ent_especialidade.insert(tk.END,col3)
-            self.ent_nome.insert(tk.END,col4)
-            self.ent_rua.insert(tk.END,col5)
-            self.ent_bairro.insert(tk.END,col6)
+            col1=self.lista_escala.item(i, 'values')
+            self.entrada_buscar.insert(tk.END,col1)
             
 
 
