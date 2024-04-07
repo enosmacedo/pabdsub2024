@@ -4,15 +4,15 @@ import customtkinter
 import tkinter as tk
 from estrutura.color_interface import *
 from tkinter import messagebox
-root = tk.Tk()
+
 class TelaLogin():
     def __init__(self): 
-        self.login=root
+        self.login=tk.Tk()
         self.controlador_banco=BDControlador()
-
         self.connect_database()
         self.janela_login()
         self.login.mainloop()
+    
        
 
     def connect_database(self):
@@ -39,7 +39,7 @@ class TelaLogin():
         self.username_login.place(relx=0.2,rely=0.3, relwidth=0.6,relheight=0.15)
         self.password_login.place(relx=0.2,rely=0.5, relwidth=0.6,relheight=0.15)
         self.btn_login.place(relx=0.29,rely=0.72, relwidth=0.4,relheight=0.15)
-
+    
     def limpar_campos(self):
         self.username_login.delete(0, tk.END)
         self.password_login.delete(0, tk.END)
@@ -49,14 +49,11 @@ class TelaLogin():
         password = self.controlador_banco.get_password(usuario, senha)
         if password is not None:
             self.login.destroy()
-            tela_lista = TelaListaEscala()
+            self.tela = TelaListaEscala()
+            self.tela.janela_lista_escala()
             
         else:
             self.limpar_campos()
             msg="Login ou senha inválidos"
             msg+="\n ou Campos vazios, Tente novamente"
             messagebox.showinfo("Erro", msg)
-            
-
-
-    
