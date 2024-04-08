@@ -2,7 +2,7 @@ import psycopg2
 from estrutura.Empresa import Empresa
 from estrutura.Funcionario import Funcionario
 from estrutura.Escala import Escala
-from estrutura.Login import Login
+from estrutura.Usuario import Usuario
 
 
 
@@ -104,7 +104,7 @@ class BDControlador:
                 
                 if resultado:
                     usuario, senha = resultado
-                    resposta = Login(usuario, senha)
+                    resposta = Usuario(usuario, senha)
                     return resposta
                     
                 else:
@@ -117,19 +117,21 @@ class BDControlador:
                     self.cursor.close()
                 
     def getEscala(self):
-        try:
-            #self.lista_escala.delete(*self.lista_escala.get_children())
-            self.cursor=self.conn.cursor()
-            self.cursor.execute(f"SELECT  nome, data_entrada, data_saida, hora_entrada, hora_saida, nome_emp FROM escala ORDER BY nome ASC ; ")
-            resultado= self.cursor.fetchall()
-            return resultado
+        if self.conn is None:
+            print("Crie a conexao primeiro")
+        else:
+            try:
+                self.cursor=self.conn.cursor()
+                self.cursor.execute(f"SELECT  nome_mes, data_inicial, data_final,cnpj_emp FROM escala ORDER BY data_inicial ASC ; ")
+                resultado= self.cursor.fetchall()
+                return resultado
 
-        except Exception as e:
-            print('Erro: ', e)
+            except Exception as e:
+                print('Erro: ', e)
 
-        finally:
-            if self.cursor:
-                self.cursor.close()
+            finally:
+                if self.cursor:
+                    self.cursor.close()
 
 
 

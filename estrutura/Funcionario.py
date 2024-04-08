@@ -1,9 +1,10 @@
 class Funcionario:
 
-    def __init__(self, nome, cpf, email, endereco):
+    def __init__(self, nome, cpf, email,cargo, endereco):
         self.nome = nome
         self.cpf = cpf
         self.email = email
+        self.cargo = cargo
         self.endereco = endereco
 
     def getNome(self):
@@ -14,6 +15,9 @@ class Funcionario:
     
     def getEmail(self):
         return self.email
+    
+    def getCargo(self):
+        return self.cargo
     
     def getEndereco(self):
         return self.endereco
@@ -26,6 +30,9 @@ class Funcionario:
     
     def setEmail(self, email):
         self.email = email
+
+    def setCargo(self, cargo):
+        self.cargo = cargo
     
     def setEndereco(self, endereco):
         self.endereco = endereco

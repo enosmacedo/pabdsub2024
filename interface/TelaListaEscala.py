@@ -1,5 +1,5 @@
 from estrutura.Controller import BDControlador
-from interface.TelaCadastroEmp import TelaCadastroEmp
+from interface.TelaCadastroEscala import TelaCadastroEscala
 from tkinter import *
 import tkinter as tk
 from tkinter import messagebox
@@ -13,8 +13,9 @@ class TelaListaEscala():
     def __init__(self):
         self.list = Toplevel()
         self.controlador_banco = BDControlador()
-        self.janela_lista_escala()
         self.conectar_banco()
+        self.janela_lista_escala()
+        
         
 
     def conectar_banco(self):
@@ -40,7 +41,7 @@ class TelaListaEscala():
         self.nomeempresa.place(relx=0.02, rely=0.02, relwidth=0.96, relheight=0.45)
         self.nome_lista = tk.Label(self.frame, text='lista de Escalas',bg='lightgray', font='arial 30 bold')
         self.nome_lista.place(relx=0.15, rely=0.50, relwidth=0.70, relheight=0.45)
-        self.btn_cad= tk.Button(self.frame,bg="lightgray", text="Cadastrar Escala")
+        self.btn_cad= tk.Button(self.frame,bg="lightgray", text="Cadastrar Escala", command=self.janela_cadastro_escala)
         self.btn_cad.place(relx=0.88, rely=0.30, relwidth=0.10, relheight=0.20)
         
         
@@ -49,27 +50,26 @@ class TelaListaEscala():
         self.entrada_buscar = tk.Entry(self.frame2)
         self.entrada_buscar.place(relx=0.50, rely=0.02, relwidth=0.25, relheight=0.05)
 
-        image_visualizar = PhotoImage(file="img/olho.png")
-        image_visualizar = image_visualizar.subsample(2,2)
-        self.botao_delete = tk.Button(self.frame2, text="Visualizar", bg="lightgray", command=self.get_escala)
+        #image_visualizar = PhotoImage(file="img/olho.png")
+        #image_visualizar = image_visualizar.subsample(2,2)
+        self.botao_delete = tk.Button(self.frame2, text="Visualizar", bg="lightgray", command= self.get_escala)
         self.botao_delete.place(relx=0.8, rely=0.02, relwidth=0.05, relheight=0.05)
 
-        image_delete = PhotoImage(file="img/delete.png")
-        image_delete = image_delete.subsample(2,2)
+        #image_delete = PhotoImage(file="img/delete.png")
+        #image_delete = image_delete.subsample(2,2)
         self.btn_delete = tk.Button(self.frame2, text="Delete", bg="lightgray")
         self.btn_delete.place(relx=0.88, rely=0.02, relwidth=0.05, relheight=0.05)
         
 
         
-        self.lista_escala = ttk.Treeview (self.frame2, height=3, column=("col_1","col_2","col_3","col_4","col_5","col_6")) 
+        self.lista_escala = ttk.Treeview (self.frame2, height=3, column=("col_1","col_2","col_3","col_4")) 
         
         self.lista_escala.heading ("#0", text= "")
-        self.lista_escala.heading ("#1",text="Nome")
-        self.lista_escala.heading ("#2",text="Data Entrada")
-        self.lista_escala.heading ("#3",text="Data Saida.")
-        self.lista_escala.heading ("#4",text="Hora Entrada")
-        self.lista_escala.heading ("#5",text="Hora Saida")
-        self.lista_escala.heading ("#6",text="Nome Empresa")
+        self.lista_escala.heading ("#1",text="Nome Mês")
+        self.lista_escala.heading ("#2",text="Data Inicial")
+        self.lista_escala.heading ("#3",text="Data Final.")
+        self.lista_escala.heading ("#4",text="CNPJ Empresa")
+       
         
         
 
@@ -78,8 +78,7 @@ class TelaListaEscala():
         self.lista_escala.column ("#2",width=80)
         self.lista_escala.column ("#3",width=80)
         self.lista_escala.column ("#4",width=80)
-        self.lista_escala.column ("#5",width=80)
-        self.lista_escala.column ("#6",width=80)
+        
         
 
         self.lista_escala.place(relx=0.01,rely=0.08, relwidth=0.95,relheight=0.9)
@@ -89,34 +88,35 @@ class TelaListaEscala():
         self.lista_escala.configure(yscroll= self.rolagem_lista_escala.set)
         self.rolagem_lista_escala.place(relx=0.97,rely=0.08, relwidth=0.015,relheight=0.9)
 
-        self.lista_escala.bind("<double-1>", self.duplo_click_escala)
+        self.lista_escala.bind("<<TreeviewSelect>>", self.duplo_click_escala)
 
     
 
     def get_escala(self):
         
         resp= self.controlador_banco.getEscala()
-        self.lista_escala.delete(*self.lista_escala.get_children())
-        for i in resp:
-            self.lista_escala.insert("", tk.END, values=i)
+        if resp is None:
+            messagebox.showinfo('Erro', 'Nenhuma Escala Cadastrada')
+        else:
+            self.lista_escala.delete(*self.lista_escala.get_children())
+            for i in resp:
+                self.lista_escala.insert("", tk.END, values=i)
         
     
 
 
     def duplo_click_escala(self, event):
-        tela=TelaCadastroEmp()
+        tela=TelaCadastroEscala()
         self.lista_escala.selection()
 
         for i in self.lista_escala.selection():
            
-            col1, col2, col3, col4, col5, col6 = self.lista_escala.item(i, 'values')
-            self.entrys = tela.janela_cadastro_emp()
+            col1, col2, col3, col4 = self.lista_escala.item(i, 'values')
             self.entrys.cnpj_emp.insert(tk.END,col1)
             self.entrys.fone_emp.insert(tk.END,col2)
             self.entrys.email_emp.insert(tk.END,col3)
             self.entrys.nome_emp.insert(tk.END,col4)
-            self.entrys.rua_emp.insert(tk.END,col5)
-            self.entrys.num_emp.insert(tk.END,col6)
+            
             
             
 
