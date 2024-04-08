@@ -6,7 +6,7 @@ class TelaCadastroEscala():
 
     def __init__(self):
         self.controle = BDControlador()
-        self.janela_cadastro_emp()
+        self.janela_cadastro_escala()
 
     def janela_cadastro_escala(self):
         self.cad_emp = tk.Tk()

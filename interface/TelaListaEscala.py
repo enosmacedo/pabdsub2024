@@ -41,7 +41,8 @@ class TelaListaEscala():
         self.nomeempresa.place(relx=0.02, rely=0.02, relwidth=0.96, relheight=0.45)
         self.nome_lista = tk.Label(self.frame, text='lista de Escalas',bg='lightgray', font='arial 30 bold')
         self.nome_lista.place(relx=0.15, rely=0.50, relwidth=0.70, relheight=0.45)
-        self.btn_cad= tk.Button(self.frame,bg="lightgray", text="Cadastrar Escala", command=self.janela_cadastro_escala)
+        
+        self.btn_cad= tk.Button(self.frame,bg="lightgray", text="Cadastrar Escala", command= self.cadastro_escala)
         self.btn_cad.place(relx=0.88, rely=0.30, relwidth=0.10, relheight=0.20)
         
         
@@ -88,7 +89,7 @@ class TelaListaEscala():
         self.lista_escala.configure(yscroll= self.rolagem_lista_escala.set)
         self.rolagem_lista_escala.place(relx=0.97,rely=0.08, relwidth=0.015,relheight=0.9)
 
-        self.lista_escala.bind("<<TreeviewSelect>>", self.duplo_click_escala)
+        self.lista_escala.bind("<<TreeviewSelect>>", self.click_escala)
 
     
 
@@ -105,7 +106,7 @@ class TelaListaEscala():
     
 
 
-    def duplo_click_escala(self, event):
+    def click_escala(self, event):
         tela=TelaCadastroEscala()
         self.lista_escala.selection()
 
@@ -116,8 +117,13 @@ class TelaListaEscala():
             self.entrys.fone_emp.insert(tk.END,col2)
             self.entrys.email_emp.insert(tk.END,col3)
             self.entrys.nome_emp.insert(tk.END,col4)
+
+   
             
-            
+    def cadastro_escala(self):
+        tela_cadastro=TelaCadastroEscala()
+        tela_cadastro.janela_cadastro_escala()
+        
             
 
 
