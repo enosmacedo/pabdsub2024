@@ -51,14 +51,14 @@ class TelaListaEscala():
         self.entrada_buscar = tk.Entry(self.frame2)
         self.entrada_buscar.place(relx=0.50, rely=0.02, relwidth=0.25, relheight=0.05)
 
-        #image_visualizar = PhotoImage(file="img/olho.png")
-        #image_visualizar = image_visualizar.subsample(2,2)
-        self.botao_delete = tk.Button(self.frame2, text="Visualizar", bg="lightgray", command= self.get_escala)
+        self.image_visualizar = PhotoImage(file="img/olho.png")
+        self.image_visualizar = self.image_visualizar.subsample(2,2)
+        self.botao_delete = tk.Button(self.frame2, image=self.image_visualizar, bg="lightgray", command= self.busca_escala)
         self.botao_delete.place(relx=0.8, rely=0.02, relwidth=0.05, relheight=0.05)
 
-        #image_delete = PhotoImage(file="img/delete.png")
-        #image_delete = image_delete.subsample(2,2)
-        self.btn_delete = tk.Button(self.frame2, text="Delete", bg="lightgray")
+        self.image_delete = PhotoImage(file="img/delete.png")
+        self.image_delete = self.image_delete.subsample(2,2)
+        self.btn_delete = tk.Button(self.frame2, image=self.image_delete, bg="lightgray",command= self.deleta_escala)
         self.btn_delete.place(relx=0.88, rely=0.02, relwidth=0.05, relheight=0.05)
         
 
@@ -107,22 +107,34 @@ class TelaListaEscala():
 
 
     def click_escala(self, event):
-        tela=TelaCadastroEscala()
+        self.entrada_buscar.delete(0, tk.END)
         self.lista_escala.selection()
-
         for i in self.lista_escala.selection():
            
-            col1, col2, col3, col4 = self.lista_escala.item(i, 'values')
-            self.entrys.cnpj_emp.insert(tk.END,col1)
-            self.entrys.fone_emp.insert(tk.END,col2)
-            self.entrys.email_emp.insert(tk.END,col3)
-            self.entrys.nome_emp.insert(tk.END,col4)
-
-   
-            
+            col1,col2, col3, col4  = self.lista_escala.item(i, 'values')
+            self.entrada_buscar.insert(tk.END,col1)
+              
     def cadastro_escala(self):
-        tela_cadastro=TelaCadastroEscala()
-        tela_cadastro.janela_cadastro_escala()
+        TelaCadastroEscala()
+
+    def deleta_escala(self):
+        nome_mes= self.entrada_buscar.get()
+        self.controlador_banco.excluirEscala(nome_mes)
+        self.entrada_buscar.delete(0, tk.END)
+        self.get_escala()
+
+    def busca_escala(self):
+        if self.entrada_buscar.get()=='':
+            self.get_escala()
+        else:
+            self.lista_escala.delete(*self.lista_escala.get_children())
+            nome_mes= self.entrada_buscar.get()
+            busca_nome= self.controlador_banco.buscaEscala(nome_mes)
+            for i in busca_nome:
+                self.lista_escala.insert("",tk.END,values=i)
+        
+            self.entrada_buscar.delete(0, tk.END)
+       
         
             
 

@@ -49,9 +49,7 @@ class TelaLogin():
         password = self.controlador_banco.get_password(usuario, senha)
         if password is not None:
             self.login.destroy()
-            self.tela = TelaListaEscala()
-            self.tela.janela_lista_escala()
-            
+            TelaListaEscala()
         else:
             self.limpar_campos()
             msg="Login ou senha inválidos"

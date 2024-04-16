@@ -133,8 +133,49 @@ class BDControlador:
                 if self.cursor:
                     self.cursor.close()
 
-
-
+    def excluirEscala(self,nome_mes):
+        if self.conn is None:
+            print("Crie a conexao primeiro")
+        else:
+            try:
+                self.cursor=self.conn.cursor()
+                self.cursor.execute("DELETE FROM escala WHERE nome_mes='{}'".format(nome_mes))
+                self.conn.commit()
+            except Exception as e:
+                print('Erro: ', e)
             
-           
+            finally:
+                if self.cursor:
+                    self.cursor.close()
+    
+    def buscaEscala(self, nome_mes):
+        if self.conn is None:
+            print("Crie a conexao primeiro")
+        else:
+            try:
+                self.cursor=self.conn.cursor()
+                self.cursor.execute(" SELECT nome_mes, data_inicial, data_final,cnpj_emp FROM escala WHERE nome_mes='{}'".format(nome_mes))
+                busca_nome=self.cursor.fetchall()
+                return busca_nome
+            except Exception as e:
+                print('Erro: ', e)
+            
+            finally:
+                if self.cursor:
+                    self.cursor.close()
+        
+    def cadastroEscala(self, nome_mes, data_inicial, data_final, cnpj_emp):
+        if self.conn is None:
+            print("Crie a conexao primeiro")
+        else:
+            try:
+                self.cursor=self.conn.cursor()
+                self.cursor.execute("INSERT INTO escala (nome_mes, data_inicial, data_final, cnpj_emp) VALUES ('{}','{}','{}','{}')".format(nome_mes, data_inicial, data_final, cnpj_emp))
+                self.conn.commit()
+            except Exception as e:
+                print('Erro: ', e)
+            
+            finally:
+                if self.cursor:
+                    self.cursor.close()
 
