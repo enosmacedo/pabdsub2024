@@ -11,7 +11,6 @@ from tkinter import ttk
 
 class TelaListaEscala():
     def __init__(self):
-        self.list = Toplevel()
         self.controlador_banco = BDControlador()
         self.conectar_banco()
         self.janela_lista_escala()
@@ -26,7 +25,8 @@ class TelaListaEscala():
         self.port_name = 5432
         self.controlador_banco.connect_database(self.databe_name, self.user_name, self.host_name, self.pass_, self.port_name)
 
-    def janela_lista_escala(self,):
+    def janela_lista_escala(self):
+        self.list = Toplevel()
         self.list.title("Lista de Escalas")
         self.list.minsize(1200, 800)
         self.list.resizable(False, False)
@@ -90,6 +90,7 @@ class TelaListaEscala():
         self.rolagem_lista_escala.place(relx=0.97,rely=0.08, relwidth=0.015,relheight=0.9)
 
         self.lista_escala.bind("<<TreeviewSelect>>", self.click_escala)
+        self.lista_escala.bind("<Double-1>", self.cadastro_escala)
 
     
 

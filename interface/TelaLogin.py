@@ -7,7 +7,6 @@ from tkinter import messagebox
 
 class TelaLogin():
     def __init__(self): 
-        self.login=tk.Tk()
         self.controlador_banco=BDControlador()
         self.connect_database()
         self.janela_login()
@@ -23,6 +22,7 @@ class TelaLogin():
         self.port_name = 5432
         self.controlador_banco.connect_database(self.databe_name, self.user_name, self.host_name, self.pass_, self.port_name)
     def janela_login(self):
+        self.login=tk.Tk()
         self.login.title(" Login")
         self.login.geometry("400x300")
         self.login.iconbitmap()
@@ -50,6 +50,7 @@ class TelaLogin():
         if password is not None:
             self.login.destroy()
             TelaListaEscala()
+            
         else:
             self.limpar_campos()
             msg="Login ou senha inválidos"

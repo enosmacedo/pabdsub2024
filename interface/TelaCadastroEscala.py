@@ -72,11 +72,13 @@ class TelaCadastroEscala():
        
     def cadastrar_escala(self):
         lista = self.controle.getEscala()
+        verif=False
         for i in lista:
-            if i[0] == self.nome_mes.get()  and i[1] == self.data_inicio.get() and i[2] == self.data_final.get() and i[3] == self.cnpj_emp.get():
-                messagebox.showinfo('Erro', 'Escala já Cadastrada')
-                self.limparEntradas()
-            else:
+            if i[1] == self.nome_mes.get()  and i[2] == self.data_inicio.get() and i[3] == self.data_final.get() and i[4] == self.cnpj_emp.get():
+                verif=True
+        if verif==True:
+            messagebox.showinfo('Erro', 'Escalas Cadastradas') 
+        else:
                 nome_mes = self.nome_mes.get()
                 data_inicio = self.data_inicio.get()
                 data_final = self.data_final.get()
