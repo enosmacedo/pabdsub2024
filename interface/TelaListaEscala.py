@@ -130,8 +130,11 @@ class TelaListaEscala():
             self.lista_escala.delete(*self.lista_escala.get_children())
             nome_mes= self.entrada_buscar.get()
             busca_nome= self.controlador_banco.buscaEscala(nome_mes)
-            for i in busca_nome:
-                self.lista_escala.insert("",tk.END,values=i)
+            if busca_nome is None:
+                messagebox.showinfo('Erro', 'Nenhuma Escala Cadastrada')
+            else:
+                for i in busca_nome:
+                    self.lista_escala.insert("",tk.END,values=i)
         
             self.entrada_buscar.delete(0, tk.END)
        

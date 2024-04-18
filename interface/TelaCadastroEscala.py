@@ -1,6 +1,7 @@
 import tkinter as tk
 from estrutura.color_interface import *
 from estrutura.Controller import BDControlador
+from tkinter import messagebox
 
 class TelaCadastroEscala():
 
@@ -63,14 +64,25 @@ class TelaCadastroEscala():
         self.btn.place(relx=0.80, rely=0.75, relwidth=0.10, relheight=0.05)
     
     
-
-
+    def limparEntradas(self):
+        self.nome_mes.delete(0, tk.END)
+        self.data_inicio.delete(0, tk.END)
+        self.data_final.delete(0, tk.END)
+        self.cnpj_emp.delete(0, tk.END)
+       
     def cadastrar_escala(self):
-        nome_mes = self.nome_mes.get()
-        data_inicio = self.data_inicio.get()
-        data_final = self.data_final.get()
-        cnpj_emp = self.cnpj_emp.get()
-        self.controle.cadastroEscala(nome_mes, data_inicio, data_final, cnpj_emp)
+        lista = self.controle.getEscala()
+        for i in lista:
+            if i[0] == self.nome_mes.get()  and i[1] == self.data_inicio.get() and i[2] == self.data_final.get() and i[3] == self.cnpj_emp.get():
+                messagebox.showinfo('Erro', 'Escala já Cadastrada')
+                self.limparEntradas()
+            else:
+                nome_mes = self.nome_mes.get()
+                data_inicio = self.data_inicio.get()
+                data_final = self.data_final.get()
+                cnpj_emp = self.cnpj_emp.get()
+                self.controle.cadastroEscala(nome_mes, data_inicio, data_final, cnpj_emp)
+                self.limparEntradas()
 
 
 
