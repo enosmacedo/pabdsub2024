@@ -19,18 +19,16 @@ class TelaCadastroEscala():
         self.controle.connect_database(self.databe_name, self.user_name, self.host_name, self.pass_, self.port_name)
 
     def janela_cadastro_escala(self):
-        self.cad_emp = tk.Tk()
-        self.cad_emp.minsize(1200, 800)
-        self.cad_emp.resizable(False, False)
-        self.cad_emp.title('Cadastro de Escalas')
-        self.cad_emp.configure(background= cor_fundo_janelas)
-        self.cad_emp.focus_force()
-        self.cad_emp.grab_set()  
-    
-        self.frame3 = tk.Frame(self.cad_emp, bg='lightgray', borderwidth=2, relief='raised')
+        self.cad_escala = tk.Tk()
+        self.cad_escala.minsize(1200, 800)
+        self.cad_escala.resizable(False, False)
+        self.cad_escala.title('Cadastro de Escalas')
+        self.cad_escala.configure(background= cor_fundo_janelas)
+        
+        self.frame3 = tk.Frame(self.cad_escala, bg='lightgray', borderwidth=2, relief='raised')
         self.frame3.place(relx=0.01, rely=0.01, relwidth=0.98, relheight=0.15)
 
-        self.frame4 = tk.Frame(self.cad_emp, bg='lightgray', borderwidth=2, relief='raised')
+        self.frame4 = tk.Frame(self.cad_escala, bg='lightgray', borderwidth=2, relief='raised')
         self.frame4.place(relx=0.01, rely=0.18, relwidth=0.98, relheight=0.80)
 
         self.lbl = tk.Label(self.frame3, text='Vigilancia.com', bg='lightgray', font='arial 40 bold')
@@ -63,28 +61,32 @@ class TelaCadastroEscala():
         self.btn = tk.Button(self.frame4, text='Cadastrar', bg='gray', fg='white', font='arial 10 bold',command=self.cadastrar_escala)
         self.btn.place(relx=0.80, rely=0.75, relwidth=0.10, relheight=0.05)
     
+        self.btn = tk.Button(self.frame4, text='Voltar', bg='gray', fg='white', font='arial 10 bold')
+        self.btn.place(relx=0.1, rely=0.75, relwidth=0.10, relheight=0.05)
     
     def limparEntradas(self):
         self.nome_mes.delete(0, tk.END)
         self.data_inicio.delete(0, tk.END)
         self.data_final.delete(0, tk.END)
         self.cnpj_emp.delete(0, tk.END)
-       
+
+  
     def cadastrar_escala(self):
-        lista = self.controle.getEscala()
-        verif=False
-        for i in lista:
-            if i[1] == self.nome_mes.get()  and i[2] == self.data_inicio.get() and i[3] == self.data_final.get() and i[4] == self.cnpj_emp.get():
-                verif=True
-        if verif==True:
-            messagebox.showinfo('Erro', 'Escalas Cadastradas') 
+        
+        if self.nome_mes.get() == '' or self.data_inicio.get() == '' or self.data_final.get() == '' or self.cnpj_emp.get() == '':
+            messagebox.showinfo('Erro', 'Preencha todos os campos')
         else:
-                nome_mes = self.nome_mes.get()
-                data_inicio = self.data_inicio.get()
-                data_final = self.data_final.get()
-                cnpj_emp = self.cnpj_emp.get()
-                self.controle.cadastroEscala(nome_mes, data_inicio, data_final, cnpj_emp)
+            verifica = self.controle.cadastroEscala
+            if verifica is not None:
+                messagebox.showinfo('Erro', 'Escala já Cadastrada') 
+            else:
+                self.controle.cadastroEscala(self.nome_mes.get(), self.data_inicio.get(), self.data_final.get(), self.cnpj_emp.get())
+                messagebox.showinfo('Sucesso', 'Escala Cadastrada')
                 self.limparEntradas()
+                
+
+    
+
 
 
 

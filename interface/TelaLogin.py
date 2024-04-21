@@ -1,12 +1,11 @@
 from estrutura.Controller import BDControlador
 from interface.TelaListaEscala import TelaListaEscala
-import customtkinter
 import tkinter as tk
 from estrutura.color_interface import *
 from tkinter import messagebox
-
 class TelaLogin():
     def __init__(self): 
+        
         self.controlador_banco=BDControlador()
         self.connect_database()
         self.janela_login()
@@ -32,9 +31,9 @@ class TelaLogin():
         self.texto=tk.Label(self.login,text="Vigilancia.Com",bg=cor_fundo_login ,font=("Times",20),fg=cor_letra_login)
         self.texto.place(relx=0.05,rely=0.1,relwidth=0.9,relheight=0.12)
 
-        self.username_login=customtkinter.CTkEntry(self.login,placeholder_text="Usuario")
-        self.password_login=customtkinter.CTkEntry(self.login,placeholder_text="Senha",show="*")
-        self.btn_login=customtkinter.CTkButton(self.login,text="login", command=self.acessar_login)
+        self.username_login=tk.Entry(self.login,font=("Times",15))
+        self.password_login=tk.Entry(self.login,font=("Times",15),show="*")
+        self.btn_login=tk.Button(self.login,text="login", command=self.acessar_login)
 
         self.username_login.place(relx=0.2,rely=0.3, relwidth=0.6,relheight=0.15)
         self.password_login.place(relx=0.2,rely=0.5, relwidth=0.6,relheight=0.15)

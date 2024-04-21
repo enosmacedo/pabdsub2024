@@ -99,7 +99,7 @@ class BDControlador:
         else:
             try:
                 self.cursor=self.conn.cursor()
-                self.cursor.execute(f"SELECT login,senha FROM usuario WHERE login = '{usuario}' AND senha = {senha}")
+                self.cursor.execute(f"SELECT login,senha FROM usuario WHERE login = '{usuario}' AND senha = '{senha}';")
                 resultado = self.cursor.fetchone()
                 
                 if resultado:
@@ -108,7 +108,7 @@ class BDControlador:
                     return resposta
                     
                 else:
-                    return None         
+                    return None        
             except Exception as e:
                 print('Erro: ', e)
             
@@ -169,6 +169,11 @@ class BDControlador:
             print("Crie a conexao primeiro")
         else:
             try:
+                reultado = self.getEscala()
+                for i in reultado:
+                    if i[0] == nome_mes and i[1] == data_inicial and i[2] == data_final and i[3] == cnpj_emp:
+                        return None
+            
                 self.cursor=self.conn.cursor()
                 self.cursor.execute("INSERT INTO escala (nome_mes, data_inicial, data_final, cnpj_emp) VALUES ('{}','{}','{}','{}')".format(nome_mes, data_inicial, data_final, cnpj_emp))
                 self.conn.commit()
