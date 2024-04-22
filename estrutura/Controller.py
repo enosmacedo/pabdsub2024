@@ -169,14 +169,15 @@ class BDControlador:
             print("Crie a conexao primeiro")
         else:
             try:
-                reultado = self.getEscala()
-                for i in reultado:
+                resultado = self.getEscala()
+                for i in resultado:
                     if i[0] == nome_mes and i[1] == data_inicial and i[2] == data_final and i[3] == cnpj_emp:
-                        return None
-            
-                self.cursor=self.conn.cursor()
-                self.cursor.execute("INSERT INTO escala (nome_mes, data_inicial, data_final, cnpj_emp) VALUES ('{}','{}','{}','{}')".format(nome_mes, data_inicial, data_final, cnpj_emp))
-                self.conn.commit()
+                        return True
+                if not resultado:
+                    self.cursor=self.conn.cursor()
+                    self.cursor.execute("INSERT INTO escala (nome_mes, data_inicial, data_final, cnpj_emp) VALUES ('{}','{}','{}','{}')".format(nome_mes, data_inicial, data_final, cnpj_emp))
+                    self.conn.commit()
+                    return False
             except Exception as e:
                 print('Erro: ', e)
             
