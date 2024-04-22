@@ -38,11 +38,17 @@ class TelaLogin():
         self.username_login.place(relx=0.2,rely=0.3, relwidth=0.6,relheight=0.15)
         self.password_login.place(relx=0.2,rely=0.5, relwidth=0.6,relheight=0.15)
         self.btn_login.place(relx=0.29,rely=0.72, relwidth=0.4,relheight=0.15)
+
+        self.login.bind("<Return>",self.entrar_login)
     
     def limpar_campos(self):
         self.username_login.delete(0, tk.END)
         self.password_login.delete(0, tk.END)
-    def acessar_login(self):
+
+    def entrar_login(self,event):
+        self.acessar_login()
+
+    def acessar_login(self,event=None):
         usuario = self.username_login.get()
         senha = self.password_login.get()
         password = self.controlador_banco.get_password(usuario, senha)

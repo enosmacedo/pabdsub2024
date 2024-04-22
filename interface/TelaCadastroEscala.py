@@ -84,7 +84,9 @@ class TelaCadastroEscala():
                 messagebox.showinfo('Sucesso', 'Escala Cadastrada')
                 self.limparEntradas()
                 
-
+    def voltar(self):
+        self.cad_escala.destroy()
+        self.TelaListaEscala()
     
 
 

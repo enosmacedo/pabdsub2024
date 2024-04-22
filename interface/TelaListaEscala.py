@@ -90,6 +90,7 @@ class TelaListaEscala():
         self.rolagem_lista_escala.place(relx=0.97,rely=0.08, relwidth=0.015,relheight=0.9)
 
         self.lista_escala.bind("<<TreeviewSelect>>", self.click_escala)
+        self.lista_escala.bind("<Double-1>", self.double_click)
         
 
     
@@ -114,6 +115,9 @@ class TelaListaEscala():
            
             col1,col2, col3, col4  = self.lista_escala.item(i, 'values')
             self.entrada_buscar.insert(tk.END,col1)
+    def double_click(self, event):
+        self.cadastro_escala()
+       
               
     def cadastro_escala(self):
         self.list.destroy()
