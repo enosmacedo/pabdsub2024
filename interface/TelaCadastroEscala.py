@@ -3,6 +3,7 @@ from estrutura.color_interface import *
 from estrutura.Controller import BDControlador
 from tkinter import messagebox
 
+
 class TelaCadastroEscala():
 
     def __init__(self):
@@ -83,10 +84,12 @@ class TelaCadastroEscala():
                 self.controle.cadastroEscala(self.nome_mes.get(), self.data_inicio.get(), self.data_final.get(), self.cnpj_emp.get())
                 messagebox.showinfo('Sucesso', 'Escala Cadastrada')
                 self.limparEntradas()
+
+    
                 
-    def voltar(self):
-        self.cad_escala.destroy()
-        self.TelaListaEscala()
+   
+
+        
     
 
 
