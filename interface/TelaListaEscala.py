@@ -84,7 +84,6 @@ class TelaListaEscala():
 
         self.lista_escala.place(relx=0.01,rely=0.08, relwidth=0.95,relheight=0.9)
 
-        #barra de rolagem 
         self.rolagem_lista_escala=Scrollbar(self.frame2, orient="vertical")
         self.lista_escala.configure(yscroll= self.rolagem_lista_escala.set)
         self.rolagem_lista_escala.place(relx=0.97,rely=0.08, relwidth=0.015,relheight=0.9)
@@ -120,7 +119,6 @@ class TelaListaEscala():
        
               
     def cadastro_escala(self):
-        self.list.destroy()
         TelaCadastroEscala()
         
 

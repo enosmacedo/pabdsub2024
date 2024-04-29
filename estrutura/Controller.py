@@ -99,7 +99,7 @@ class BDControlador:
         else:
             try:
                 self.cursor=self.conn.cursor()
-                self.cursor.execute(f"SELECT login,senha FROM usuario WHERE login = '{usuario}' AND senha = '{senha}';")
+                self.cursor.execute("SELECT login,senha FROM usuario WHERE login = %s AND senha = %s", (usuario, senha))
                 resultado = self.cursor.fetchone()
                 
                 if resultado:
@@ -107,8 +107,7 @@ class BDControlador:
                     resposta = Usuario(usuario, senha)
                     return resposta
                     
-                else:
-                    return None        
+                      
             except Exception as e:
                 print('Erro: ', e)
             
@@ -166,22 +165,25 @@ class BDControlador:
         
     def cadastroEscala(self, nome_mes, data_inicial, data_final, cnpj_emp):
         if self.conn is None:
-            print("Crie a conexao primeiro")
+            print("Crie a conexão primeiro")
         else:
             try:
-                resultado = self.getEscala()
-                for i in resultado:
-                    if i[0] == nome_mes and i[1] == data_inicial and i[2] == data_final and i[3] == cnpj_emp:
-                        return True
-                if not resultado:
-                    self.cursor=self.conn.cursor()
-                    self.cursor.execute("INSERT INTO escala (nome_mes, data_inicial, data_final, cnpj_emp) VALUES ('{}','{}','{}','{}')".format(nome_mes, data_inicial, data_final, cnpj_emp))
+                self.cursor = self.conn.cursor()
+            
+                self.cursor.execute("SELECT * FROM escala WHERE nome_mes = %s AND data_inicial = %s AND data_final = %s AND cnpj_emp = %s",
+                                (nome_mes, data_inicial, data_final, cnpj_emp))
+                resultado = self.cursor.fetchone()
+
+                if resultado:
+                    return resultado
+                else:
+                
+                    self.cursor.execute("INSERT INTO escala (nome_mes, data_inicial, data_final, cnpj_emp) VALUES (%s, %s, %s, %s)",
+                                    (nome_mes, data_inicial, data_final, cnpj_emp))
                     self.conn.commit()
-                    return False
+
             except Exception as e:
                 print('Erro: ', e)
-            
             finally:
                 if self.cursor:
                     self.cursor.close()
-

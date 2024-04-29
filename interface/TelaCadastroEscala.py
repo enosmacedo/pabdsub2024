@@ -62,9 +62,7 @@ class TelaCadastroEscala():
         self.btn = tk.Button(self.frame4, text='Cadastrar', bg='gray', fg='white', font='arial 10 bold',command=self.cadastrar_escala)
         self.btn.place(relx=0.80, rely=0.75, relwidth=0.10, relheight=0.05)
     
-        self.btn = tk.Button(self.frame4, text='Voltar', bg='gray', fg='white', font='arial 10 bold')
-        self.btn.place(relx=0.1, rely=0.75, relwidth=0.10, relheight=0.05)
-    
+       
     def limparEntradas(self):
         self.nome_mes.delete(0, tk.END)
         self.data_inicio.delete(0, tk.END)
@@ -73,19 +71,21 @@ class TelaCadastroEscala():
 
   
     def cadastrar_escala(self):
-        
         if self.nome_mes.get() == '' or self.data_inicio.get() == '' or self.data_final.get() == '' or self.cnpj_emp.get() == '':
             messagebox.showinfo('Erro', 'Preencha todos os campos')
         else:
-            verifica = self.controle.cadastroEscala
-            if verifica == True:
-                messagebox.showinfo('Erro', 'Escala já Cadastrada') 
+        
+            resultado = self.controle.cadastroEscala(self.nome_mes.get(), self.data_inicio.get(), self.data_final.get(), self.cnpj_emp.get())
+            if resultado != None:  
+                messagebox.showinfo('Erro', 'Escala já cadastrada')
             else:
-                self.controle.cadastroEscala(self.nome_mes.get(), self.data_inicio.get(), self.data_final.get(), self.cnpj_emp.get())
-                messagebox.showinfo('Sucesso', 'Escala Cadastrada')
+                messagebox.showinfo('Sucesso', 'Escala cadastrada com sucesso')
                 self.limparEntradas()
 
     
+
+        
+        
                 
    
 

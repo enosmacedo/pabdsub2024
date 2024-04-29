@@ -49,15 +49,19 @@ class TelaLogin():
         self.acessar_login()
 
     def acessar_login(self,event=None):
-        usuario = self.username_login.get()
-        senha = self.password_login.get()
-        password = self.controlador_banco.get_password(usuario, senha)
-        if password is not None:
-            self.login.destroy()
-            TelaListaEscala()
-            
-        else:
+        if self.username_login.get() == "" or self.password_login.get() == "":
             self.limpar_campos()
-            msg="Login ou senha inválidos"
-            msg+="\n ou Campos vazios, Tente novamente"
+            msg="Preencha todos os campos"
             messagebox.showinfo("Erro", msg)
+        else:
+            usuario = self.username_login.get()
+            senha = self.password_login.get()
+            password = self.controlador_banco.get_password(usuario, senha)
+            if password is not None:
+                self.login.destroy()
+                TelaListaEscala()
+            
+            else:
+                self.limpar_campos()
+                msg="Login ou senha inválidos"
+                messagebox.showinfo("Erro", msg)
