@@ -115,7 +115,15 @@ class TelaListaEscala():
             col1,col2, col3, col4  = self.lista_escala.item(i, 'values')
             self.entrada_buscar.insert(tk.END,col1)
     def double_click(self, event):
-        self.cadastro_escala()
+        self.lista_escala.selection()
+        for i in self.lista_escala.selection():
+            self.tela_cad=TelaCadastroEscala()
+           
+            col1,col2, col3, col4  = self.lista_escala.item(i, 'values')
+            self.tela_cad.nome_mes.insert(tk.END,col1)
+            self.tela_cad.data_inicio.insert(tk.END,col2)
+            self.tela_cad.data_final.insert(tk.END,col3)
+            self.tela_cad.cnpj_emp.insert(tk.END,col4)
        
               
     def cadastro_escala(self):

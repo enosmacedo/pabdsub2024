@@ -61,6 +61,9 @@ class TelaCadastroEscala():
         
         self.btn = tk.Button(self.frame4, text='Cadastrar', bg='gray', fg='white', font='arial 10 bold',command=self.cadastrar_escala)
         self.btn.place(relx=0.80, rely=0.75, relwidth=0.10, relheight=0.05)
+
+        self.btn = tk.Button(self.frame4, text='Editar', bg='gray', fg='white', font='arial 10 bold',command=self.editar_escala)
+        self.btn.place(relx=0.60, rely=0.75, relwidth=0.10, relheight=0.05)
     
        
     def limparEntradas(self):
@@ -82,6 +85,17 @@ class TelaCadastroEscala():
                 messagebox.showinfo('Sucesso', 'Escala cadastrada com sucesso')
                 self.limparEntradas()
 
+    def editar_escala(self):
+        if self.nome_mes.get() == '' or self.data_inicio.get() == '' or self.data_final.get() == '' or self.cnpj_emp.get() == '':
+            messagebox.showinfo('Erro', 'Preencha todos os campos')
+        else:
+        
+            resultado = self.controle.editarEscala(self.nome_mes.get(), self.data_inicio.get(), self.data_final.get(), self.cnpj_emp.get())
+            if resultado != None:  
+                messagebox.showinfo('Erro', 'Escala não editada')
+            else:
+                messagebox.showinfo('Sucesso', 'Escala editada com sucesso')
+                self.limparEntradas()
     
 
         

@@ -187,3 +187,26 @@ class BDControlador:
             finally:
                 if self.cursor:
                     self.cursor.close()
+
+    def editarEscala(self, nome_mes, data_inicial, data_final, cnpj_emp):
+        if self.conn is None:
+            print("Crie a conexão primeiro")
+        else:
+            try:
+                self.cursor = self.conn.cursor()
+            
+                self.cursor.execute("SELECT * FROM escala WHERE nome_mes = %s AND data_inicial = %s AND data_final = %s AND cnpj_emp = %s",
+                                (nome_mes, data_inicial, data_final, cnpj_emp))
+                resultado = self.cursor.fetchone()
+
+                if resultado:
+                    self.cursor.execute("UPDATE escala SET nome_mes = %s, data_inicial = %s, data_final = %s, cnpj_emp = %s WHERE nome_mes = %s " ,
+                                    (nome_mes, data_inicial, data_final, cnpj_emp))
+                    self.conn.commit()
+                
+
+            except Exception as e:
+                print('Erro: ', e)
+            finally:
+                if self.cursor:
+                    self.cursor.close()
