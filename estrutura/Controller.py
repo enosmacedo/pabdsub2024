@@ -194,17 +194,9 @@ class BDControlador:
         else:
             try:
                 self.cursor = self.conn.cursor()
-            
-                self.cursor.execute("SELECT * FROM escala WHERE nome_mes = %s AND data_inicial = %s AND data_final = %s AND cnpj_emp = %s",
-                                (nome_mes, data_inicial, data_final, cnpj_emp))
-                resultado = self.cursor.fetchone()
-
-                if resultado:
-                    self.cursor.execute("UPDATE escala SET nome_mes = %s, data_inicial = %s, data_final = %s, cnpj_emp = %s WHERE nome_mes = %s " ,
-                                    (nome_mes, data_inicial, data_final, cnpj_emp))
-                    self.conn.commit()
-                
-
+                self.cursor.execute("UPDATE escala SET nome_mes = %s, data_inicial = %s, data_final = %s, cnpj_emp = %s WHERE nome_mes = %s ",
+                    (nome_mes, data_inicial, data_final, cnpj_emp, nome_mes))
+                self.conn.commit()
             except Exception as e:
                 print('Erro: ', e)
             finally:

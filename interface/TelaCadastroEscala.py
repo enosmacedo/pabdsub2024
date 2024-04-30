@@ -90,12 +90,10 @@ class TelaCadastroEscala():
             messagebox.showinfo('Erro', 'Preencha todos os campos')
         else:
         
-            resultado = self.controle.editarEscala(self.nome_mes.get(), self.data_inicio.get(), self.data_final.get(), self.cnpj_emp.get())
-            if resultado != None:  
-                messagebox.showinfo('Erro', 'Escala não editada')
-            else:
-                messagebox.showinfo('Sucesso', 'Escala editada com sucesso')
-                self.limparEntradas()
+            self.controle.editarEscala(self.nome_mes.get(), self.data_inicio.get(), self.data_final.get(), self.cnpj_emp.get())
+            self.limparEntradas()
+                
+            
     
 
         
