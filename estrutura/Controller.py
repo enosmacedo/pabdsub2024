@@ -93,28 +93,37 @@ class BDControlador:
             finally:
                 self.conn.close()
 
-    def get_password(self,usuario, senha):
-        if self.conn is None:
-            print("Crie a conexao primeiro")
+    def get_password(self, usuario, senha):
+        if self.conn == None:
+            print("Crie a conexão primeiro")
+            
         else:
             try:
-                self.cursor=self.conn.cursor()
-                self.cursor.execute("SELECT login,senha FROM usuario WHERE login = %s AND senha = %s", (usuario, senha))
+                self.cursor = self.conn.cursor()
+                self.cursor.execute("SELECT login, senha, cpf FROM usuario WHERE login = %s AND senha = %s", (usuario, senha))
                 resultado = self.cursor.fetchone()
-                
+            
                 if resultado:
-                    usuario, senha = resultado
-                    resposta = Usuario(usuario, senha)
-                    return resposta
-                    
-                      
+                    usuario, senha, cpf = resultado
+                    self.cursor.execute("SELECT cargo FROM funcionario WHERE cpf = %s", (cpf,))
+                    cargo = self.cursor.fetchone()
+                
+                    if cargo: 
+                        return cargo[0], Usuario(usuario, senha)  
+                    else:
+                        return None, None 
+                
+                else:
+                    return None, None 
+            
             except Exception as e:
-                print('Erro: ', e)
+                print('Erro:', e)
+                return None, None 
             
             finally:
                 if self.cursor:
                     self.cursor.close()
-                
+
     def getEscala(self):
         if self.conn is None:
             print("Crie a conexao primeiro")
