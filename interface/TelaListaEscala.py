@@ -14,6 +14,7 @@ class TelaListaEscala():
         self.controlador_banco = BDControlador()
         self.conectar_banco()
         self.janela_lista_escala()
+       
         
         
 
@@ -53,8 +54,8 @@ class TelaListaEscala():
 
         self.image_visualizar = PhotoImage(file="img/olho.png")
         self.image_visualizar = self.image_visualizar.subsample(2,2)
-        self.botao_delete = tk.Button(self.frame2, image=self.image_visualizar, bg="lightgray", command= self.busca_escala)
-        self.botao_delete.place(relx=0.8, rely=0.02, relwidth=0.05, relheight=0.05)
+        self.botao_visual = tk.Button(self.frame2, image=self.image_visualizar, bg="lightgray", command= self.busca_escala)
+        self.botao_visual.place(relx=0.8, rely=0.02, relwidth=0.05, relheight=0.05)
 
         self.image_delete = PhotoImage(file="img/delete.png")
         self.image_delete = self.image_delete.subsample(2,2)
@@ -91,48 +92,6 @@ class TelaListaEscala():
         self.lista_escala.bind("<<TreeviewSelect>>", self.click_escala)
         self.lista_escala.bind("<Double-1>", self.double_click)
         
-    def janela_lista_escala1(self):
-        self.list1 = tk.Tk()
-        self.list1.title("Lista de Escalas")
-        self.list1.minsize(1200, 800)
-        self.list1.resizable(False, False)
-        self.list1.configure(background= "lightgray")
-         
-        self.frame = tk.Frame(self.list1, bg='lightgray', borderwidth=2, relief='raised')
-        self.frame.place(relx=0.01, rely=0.01, relwidth=0.98, relheight=0.20)
-        self.frame2 = tk.Frame(self.list1, bg='lightgray', borderwidth=2, relief='raised')
-        self.frame2.place(relx=0.01, rely=0.23, relwidth=0.98, relheight=0.75)
-
-        self.nomeempresa = tk.Label(self.frame, text='Vigilancia.com',bg='lightgray', font='arial 40 bold')
-        self.nomeempresa.place(relx=0.02, rely=0.02, relwidth=0.96, relheight=0.45)
-        self.nome_lista = tk.Label(self.frame, text='lista de Escalas',bg='lightgray', font='arial 30 bold')
-        self.nome_lista.place(relx=0.15, rely=0.50, relwidth=0.70, relheight=0.45)
-
-        self.lista_escala = ttk.Treeview (self.frame2, height=3, column=("col_1","col_2","col_3","col_4")) 
-        
-        self.lista_escala.heading ("#0", text= "")
-        self.lista_escala.heading ("#1",text="Nome Mês")
-        self.lista_escala.heading ("#2",text="Data Inicial")
-        self.lista_escala.heading ("#3",text="Data Final.")
-        self.lista_escala.heading ("#4",text="CNPJ Empresa")
-       
-        self.lista_escala.column ("#0",width=1)
-        self.lista_escala.column ("#1",width=99)
-        self.lista_escala.column ("#2",width=80)
-        self.lista_escala.column ("#3",width=80)
-        self.lista_escala.column ("#4",width=80)
-        
-        
-        self.lista_escala.place(relx=0.01,rely=0.08, relwidth=0.95,relheight=0.9)
-
-        self.rolagem_lista_escala=Scrollbar(self.frame2, orient="vertical")
-        self.lista_escala.configure(yscroll= self.rolagem_lista_escala.set)
-        self.rolagem_lista_escala.place(relx=0.97,rely=0.08, relwidth=0.015,relheight=0.9)
-
-        
-        self.lista_escala.bind("<Double-1>", self.double_click2)
-        
-
     
 
     def get_escala(self):
@@ -167,11 +126,11 @@ class TelaListaEscala():
             self.tela_cad.cnpj_emp.insert(tk.END,col4)
     
     def double_click2(self, event):
-        self.lista_escala.selection()
-        for i in self.lista_escala.selection():
-            #self.tela_cad=TelaEscalados()
+        self.lista_escala_func.selection()
+        for i in self.lista_escala_func.selection():
+            #self.tela_escalados=TelaEscalados()
            
-            col1,col2, col3, col4  = self.lista_escala.item(i, 'values')
+            col1,col2, col3, col4  = self.lista_escala_func.item(i, 'values')
             self.tela_cad.nome_mes.insert(tk.END,col1)
             self.tela_cad.data_inicio.insert(tk.END,col2)
             self.tela_cad.data_final.insert(tk.END,col3)

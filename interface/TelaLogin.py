@@ -1,5 +1,6 @@
 from estrutura.Controller import BDControlador
 from interface.TelaListaEscala import TelaListaEscala
+from interface.TelaCadastroFunc import TelaCadastroFunc
 import tkinter as tk
 from estrutura.color_interface import *
 from tkinter import messagebox
@@ -58,15 +59,14 @@ class TelaLogin():
             senha = self.password_login.get()
             cargo, password = self.controlador_banco.get_password(usuario, senha)
         
-        if cargo == "Gerente" and password is not None: 
-            self.login.destroy()
-            tela_gerente=TelaListaEscala()
-            tela_gerente.janela_lista_escala()
-        elif cargo != "Gerente" and password is not None:
-            self.login.destroy()
-            tela_func=TelaListaEscala()
-            tela_func.janela_lista_escala1()
-        else:
-            self.limpar_campos()
-            msg = "Login ou senha inválidos"
-            messagebox.showinfo("Erro", msg)
+            if cargo == "Gerente" and password is not None: 
+                self.login.destroy()
+                TelaListaEscala()
+        
+            elif cargo != "Gerente" and password is not None:
+                self.login.destroy()
+                TelaCadastroFunc()
+            else:
+                self.limpar_campos()
+                msg = "Login ou senha inválidos"
+                messagebox.showinfo("Erro", msg)
