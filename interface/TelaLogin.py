@@ -1,6 +1,6 @@
 from estrutura.Controller import BDControlador
 from interface.TelaListaEscala import TelaListaEscala
-from interface.TelaCadastroFunc import TelaCadastroFunc
+from interface.Tela_lista_escala_func import TelaListaEscalaFunc
 import tkinter as tk
 from estrutura.color_interface import *
 from tkinter import messagebox
@@ -65,7 +65,7 @@ class TelaLogin():
         
             elif cargo != "Gerente" and password is not None:
                 self.login.destroy()
-                TelaCadastroFunc()
+                TelaListaEscalaFunc()
             else:
                 self.limpar_campos()
                 msg = "Login ou senha inválidos"

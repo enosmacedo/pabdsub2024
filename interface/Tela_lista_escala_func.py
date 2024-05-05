@@ -1,4 +1,5 @@
 from estrutura.Controller import BDControlador
+from interface.TelaEscalados import TelaEscalados
 from tkinter import *
 import tkinter as tk
 from tkinter import messagebox
@@ -7,6 +8,7 @@ from tkinter import ttk
 class TelaListaEscalaFunc():
     def __init__(self):
         self.controlador_banco = BDControlador()
+        self.conectar_banco()
         self.janela_lista_escala_func()
 
     def conectar_banco(self):
@@ -39,9 +41,8 @@ class TelaListaEscalaFunc():
         self.entrada_buscar_func = tk.Entry(self.frame_func1)
         self.entrada_buscar_func.place(relx=0.50, rely=0.02, relwidth=0.25, relheight=0.05)
 
-        self.image_visualizar_func = PhotoImage(file="img/olho.png")
-        self.image_visualizar_func = self.image_visualizar_func.subsample(2,2)
-        self.botao_visual_func = tk.Button(self.frame_func1, image=self.image_visualizar_func, bg="lightgray")
+        
+        self.botao_visual_func = tk.Button(self.frame_func1, text="Buscar", bg="lightgray",command=self.busca_escala)
         self.botao_visual_func.place(relx=0.8, rely=0.02, relwidth=0.05, relheight=0.05)
 
         self.lista_escala_func = ttk.Treeview (self.frame_func1, height=3, column=("col_1","col_2","col_3","col_4")) 
@@ -66,7 +67,41 @@ class TelaListaEscalaFunc():
         self.rolagem_lista_escala_func.place(relx=0.97,rely=0.08, relwidth=0.015,relheight=0.9)
 
         
-        self.lista_escala_func.bind("<Double-1>")
+        self.lista_escala_func.bind("<Double-1>", self.double_click)
         
 
-    
+    def get_escala(self):
+        
+        resp= self.controlador_banco.getEscala()
+        if resp is None:
+            messagebox.showinfo('Erro', 'Nenhuma Escala Cadastrada')
+        else:
+            self.lista_escala_func.delete(*self.lista_escala_func.get_children())
+            for i in resp:
+                self.lista_escala_func.insert("", tk.END, values=i)
+
+    def busca_escala(self):
+        if self.entrada_buscar_func.get()=='':
+            self.get_escala()
+        else:
+            self.lista_escala_func.delete(*self.lista_escala_func.get_children())
+            nome_mes= self.entrada_buscar_func.get()
+            busca_nome= self.controlador_banco.buscaEscala(nome_mes)
+            if busca_nome is None:
+                messagebox.showinfo('Erro', 'Nenhuma Escala Cadastrada')
+            else:
+                for i in busca_nome:
+                    self.lista_escala_func.insert("",tk.END,values=i)
+        
+            self.entrada_buscar_func.delete(0, tk.END)
+
+    def double_click(self, event):
+        self.lista_escala_func.selection()
+        for i in self.lista_escala_func.selection():
+            self.tela_escalado=TelaEscalados()
+           
+            col1,col2, col3, col4  = self.lista_escala_func.item(i, 'values')
+            #self.tela_cad.nome_mes.insert(tk.END,col1)
+            #self.tela_cad.data_inicio.insert(tk.END,col2)
+            #self.tela_cad.data_final.insert(tk.END,col3)
+            #self.tela_cad.cnpj_emp.insert(tk.END,col4)
