@@ -96,12 +96,15 @@ class TelaListaEscalaFunc():
             self.entrada_buscar_func.delete(0, tk.END)
 
     def double_click(self, event):
-        self.lista_escala_func.selection()
-        for i in self.lista_escala_func.selection():
-            self.tela_escalado=TelaEscalados()
+        resp= self.controlador_banco.getEscalado()
+        if resp is None:
+            messagebox.showinfo('Erro', 'Nenhum Funcionario Cadastrado')
+        else:
+            self.lista_escalado=TelaEscalados().lista_escalado
+            self.lista_escalado.delete(*self.lista_escalado.get_children())
+            for i in resp:
+                self.lista_escalado.insert("", tk.END, values=i)
+            
+            
            
-            col1,col2, col3, col4  = self.lista_escala_func.item(i, 'values')
-            #self.tela_cad.nome_mes.insert(tk.END,col1)
-            #self.tela_cad.data_inicio.insert(tk.END,col2)
-            #self.tela_cad.data_final.insert(tk.END,col3)
-            #self.tela_cad.cnpj_emp.insert(tk.END,col4)
+            

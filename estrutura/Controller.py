@@ -211,3 +211,20 @@ class BDControlador:
             finally:
                 if self.cursor:
                     self.cursor.close()
+
+    def getEscalado(self):
+        if self.conn is None:
+            print("Crie a conexao primeiro")
+        else:
+            try:
+                self.cursor=self.conn.cursor()
+                self.cursor.execute(f"SELECT  nome, data_entrada, hora_entrada, data_saida, hora_saida, posto, cnpj_emp FROM escalado ORDER BY data_entrada ASC ; ")
+                resultado= self.cursor.fetchall()
+                return resultado
+
+            except Exception as e:
+                print('Erro: ', e)
+
+            finally:
+                if self.cursor:
+                    self.cursor.close()
