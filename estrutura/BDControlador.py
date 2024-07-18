@@ -13,16 +13,19 @@ class BDControlador:
             print("Crie a conexao primeiro")
         else:
             cursor = self.conn.cursor()
+            print("id_empresa "+ id_empresa)
             
-            consulta = "SELECT nome, cnpj, email FROM empresa where cnpj = '" + str(id_empresa) + "';" 
+            consulta = "SELECT nome, cnpj, email FROM empresa where nome = '" + str(id_empresa) + "';" 
+            print(consulta)
             cursor.execute(consulta)
             
             resultado = cursor.fetchone()
-            
+            print("resultado: " + str(resultado))
             if resultado:
                 nome, cnpj, email = resultado
                 # return {"nome": nome, "cnpj": cnpj, "endereco": endereco}
                 res = Empresa(nome, cnpj, email, None)
+                print(res)
                 return res 
             else:
                 return "Empresa não encontrada."

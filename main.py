@@ -9,7 +9,7 @@ def buttonPress():
     id = textb.get()
     empresa_teste = controlador_banco.get_empresa(id)
 
-    label.config(text=empresa_teste.nome)
+    label.config(text=empresa_teste.cnpj)
 
 
 

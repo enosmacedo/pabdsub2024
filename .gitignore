@@ -1,2 +1,5 @@
 tcVenv/*
 tcVenv
+.venv*
+*.venv*
+.venv/*
