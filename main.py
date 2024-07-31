@@ -2,55 +2,28 @@ import psycopg2
 from estrutura.BDControlador import BDControlador
 from estrutura.Empresa import Empresa
 import tkinter as tk
+from interface import TelaLogin
+import Constants
 
-
-def buttonPress():
-    print("Button Pressed!!")
-    id = textb.get()
-    empresa_teste = controlador_banco.get_empresa(id)
-
-    label.config(text=empresa_teste.cnpj)
-
-
-
-def textBox():
-    print(textb.get())
-    
-def slideValue():
-    print (Slider.get())
+databe_name = "ticketcontroller"
+user_name = "postgres"
+host_name = "localhost" 
+pass_ = "postgres"
+port_name = 5432
 
 
 if __name__ == '__main__':
-    databe_name = "ticketcontroller"
-    user_name = "postgres"
-    host_name = "localhost" 
-    pass_ = "postgres"
-    port_name = 5432
+    TelaLogin.run_tela()
+    # controlador_banco = BDControlador()
+    # controlador_banco.connect_database(databe_name, user_name, host_name, pass_,  port_name)
 
-    controlador_banco = BDControlador()
-    controlador_banco.connect_database(databe_name, user_name, host_name, pass_, port_name)
-
-    mywindow = tk.Tk()
-    #Label
-    label = tk.Label(mywindow, text="Label Text")
-    label.grid(row=0,column=1)
-
-    #Button
-    button = tk.Button(mywindow,text='Press',command=buttonPress)
-    button.grid(row=1,column=1)
-
-    #Textbox
-    textb = tk.Entry(mywindow,text="Entry")
-    textbutton = tk.Button(mywindow,text="<-- Digite o id da empresa",command=textBox)
-    textb.grid(row=2,column=1)
-    textbutton.grid(row=2,column=2)
-
+    # usuario = controlador_banco.get_usuario("carol", "123")
+    # print(usuario)
+    # if usuario == None:
+    #     print("Deu ruim")
+    # else:
+    #     print("Deu bom")
     
-
-    mywindow.mainloop()
-
-
-
 
 
 
